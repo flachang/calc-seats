@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import reactDom from "react-dom";
-import OperateSeats from "./src/App"
+
 import { Demo } from "./src/Demo";
 import CloneEle from "./src/CloneEle";
 
-const toLearn = ['react', 'vue', 'nodejs', 'webpack']
-const TextComponent = () => <div><div>zxx</div>hello, i am function component</div>
+const toLearn = ["react", "vue", "nodejs", "webpack"];
+const TextComponent = () => (
+  <div>
+    <div>zxx</div>hello, i am function component
+  </div>
+);
 
 class Home extends React.PureComponent {
   renderFoot = () => <div>i am foot</div>;
@@ -33,12 +37,13 @@ class Home extends React.PureComponent {
   }
 }
 
-// console.log(React.Children.map(Home().props.children, i => i))
-
 // jsx => React.createElement
 // React.createElement 会 return 一个对象，就是 ReactElement
-console.log(new (<Home />).type());
-console.log(<div>1111</div>);
+console.log(
+  "new Component.type() 返回的是 ReactElement 对象",
+  new (<Home />).type()
+);
+console.log("<div>1111</div>", <div>1111</div>);
 
 console.log("isValidElement :>> ", React.isValidElement(Home));
 console.log("isValidElement :>> ", React.isValidElement(<Home />));
@@ -48,5 +53,8 @@ const isValidElement = React.isValidElement({
 }); // true
 
 console.log("isValidElement :>> ", isValidElement);
+
+console.log("props: {children: Array[5]} :>> ", CloneEle());
+console.log("props: {} :>> ", <CloneEle />);
 
 reactDom.render(<Home />, document.getElementById("root"));
