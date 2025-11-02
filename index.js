@@ -40,6 +40,13 @@ class Home extends React.PureComponent {
 console.log(new (<Home />).type());
 console.log(<div>1111</div>);
 
+console.log("isValidElement :>> ", React.isValidElement(Home));
+console.log("isValidElement :>> ", React.isValidElement(<Home />));
 
+const isValidElement = React.isValidElement({
+  $$typeof: Symbol.for("react.element"),
+}); // true
+
+console.log("isValidElement :>> ", isValidElement);
 
 reactDom.render(<Home />, document.getElementById("root"));
