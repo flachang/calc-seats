@@ -40,6 +40,7 @@ class Home extends React.PureComponent {
 // jsx => React.createElement
 // React.createElement 会 return 一个对象，就是 ReactElement
 console.log(
+  "类组件创建出的ReactElement :>> ",
   "new Component.type() 返回的是 ReactElement 对象",
   new (<Home />).type()
 );
@@ -54,7 +55,13 @@ const isValidElement = React.isValidElement({
 
 console.log("isValidElement :>> ", isValidElement);
 
-console.log("props: {children: Array[5]} :>> ", CloneEle());
+// const componentReturnEle = CloneEle({ title: "111" }); props 只能通过jsx 传递
+const ComponentJSXEle = <CloneEle title={222} />;
+
+console.log("props: {children: Array[5]} :>> ");
 console.log("props: {} :>> ", <CloneEle />);
+
+console.log("函数组件创造出的ReactElement type :>> ", (<CloneEle />).type());
+console.log("CloneEle :>> ", CloneEle);
 
 reactDom.render(<Home />, document.getElementById("root"));
