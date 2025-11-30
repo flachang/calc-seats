@@ -55,13 +55,17 @@ const isValidElement = React.isValidElement({
 
 console.log("isValidElement :>> ", isValidElement);
 
-// const componentReturnEle = CloneEle({ title: "111" }); props 只能通过jsx 传递
+const componentReturnEle = CloneEle({ text: "123" }); // props 只能通过jsx 传递
 const ComponentJSXEle = <CloneEle title={222} />;
 
-console.log("props: {children: Array[5]} :>> ");
-console.log("props: {} :>> ", <CloneEle />);
+console.log("props: {children: Array[5]} :>> ", componentReturnEle);
+console.log("props: {} :>> ", <CloneEle text="123" />);
+
+console.log("--------CloneEle------------- :>> ", CloneEle);
+console.log("--------CloneEle()------------:>> ", CloneEle());
+console.log("--------<CloneEle />------------:>> ", <CloneEle />);
 
 console.log("函数组件创造出的ReactElement type :>> ", (<CloneEle />).type());
-console.log("CloneEle :>> ", CloneEle);
+
 
 reactDom.render(<Home />, document.getElementById("root"));

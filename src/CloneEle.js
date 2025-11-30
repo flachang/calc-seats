@@ -18,8 +18,8 @@ const NewFather = ({ children }) =>
 
 const Son = ({ age }) => <div>{` 我永远${age}岁 `}</div>;
 
-function FWC({ title }) {
-  console.log("title :>> ", title);
+function FWC(props) {
+  console.log("props :>> ", props);
   return (
     <NewFather>
       <Son />
