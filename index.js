@@ -3,6 +3,7 @@ import reactDom from "react-dom";
 
 import { Demo } from "./src/Demo";
 import CloneEle from "./src/CloneEle";
+import Sample from "./src/Sample";
 
 const toLearn = ["react", "vue", "nodejs", "webpack"];
 const TextComponent = () => (
@@ -32,6 +33,8 @@ class Home extends React.PureComponent {
         <TextComponent />
         {this.renderFoot()}
         <CloneEle />
+        {`----------------------`}
+        <Sample />
       </div>
     );
   }
@@ -62,8 +65,8 @@ console.log("props: {children: Array[5]} :>> ", componentReturnEle);
 console.log("props: {} :>> ", <CloneEle text="123" />);
 
 console.log("--------CloneEle------------- :>> ", CloneEle);
-console.log("--------CloneEle()------------:>> ", CloneEle());
-console.log("--------<CloneEle />------------:>> ", <CloneEle />);
+console.log("--------CloneEle()------------:>> ", CloneEle()); // 这是渲染函数
+console.log("--------<CloneEle />------------:>> ", <CloneEle />); // 这是组件
 
 console.log("函数组件创造出的ReactElement type :>> ", (<CloneEle />).type());
 
