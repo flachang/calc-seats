@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Econometrics in R — 中文翻译（前十页）</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --line: #ddd;
+    --code-bg: #f6f6f4;
+    --page: #f0f0ee;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "SimSun", serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: #fafafa;
+  }
+  .wrap {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  header.doc {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .meta { color: var(--muted); font-size: 0.95rem; }
+  .note {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #fff8e7;
+    border-left: 3px solid #c9a227;
+    font-size: 0.9rem;
+    color: #444;
+  }
+  .page {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  .page-label {
+    display: inline-block;
+    font-family: "SF Mono", "Menlo", Consolas, monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--page);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    margin: 1.25rem 0 0.75rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.25rem;
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.1rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1.05rem;
+    margin: 1rem 0 0.4rem;
+  }
+  p { margin: 0.65rem 0; }
+  ul, ol { margin: 0.5rem 0 0.75rem; padding-left: 1.4rem; }
+  li { margin: 0.25rem 0; }
+  code, pre {
+    font-family: "SF Mono", "Menlo", Consolas, "Courier New", monospace;
+    font-size: 0.88em;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+  pre {
+    background: var(--code-bg);
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    border-radius: 4px;
+    border: 1px solid #e8e8e4;
+    line-height: 1.45;
+  }
+  pre code { background: none; padding: 0; }
+  .toc { list-style: none; padding-left: 0; }
+  .toc li { margin: 0.15rem 0; }
+  .toc .l2 { padding-left: 1.2rem; }
+  .toc .l3 { padding-left: 2.4rem; }
+  .toc .pg { float: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pkg-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin: 0.75rem 0;
+  }
+  .pkg-table th, .pkg-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 0.4rem 0.5rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .pkg-table th { background: var(--page); }
+  .pkg-table code { white-space: nowrap; }
+  footer {
+    margin-top: 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>《R 中的计量经济学》中文翻译</h1>
+  <p class="meta">原文：Econometrics in R — Grant V. Farnsworth（2008-10-26）<br>
+  范围：全书第 1–50 页 · 输出文件：R-trans.html</p>
+  <p class="note">说明：本地 <code>R.pdf</code> 内容流已损坏（无法直接抽取正文）。本译文依据与该书目录、作者、日期一致的 CRAN 版本
+  <a href="https://cran.r-project.org/doc/contrib/Farnsworth-EconometricsInR.pdf">Farnsworth-EconometricsInR.pdf</a>
+  全文翻译。代码与命令保持原文。</p>
+</header>
+
+<!-- ========== PAGE 1 ========== -->
+<section class="page" id="p1">
+  <div class="page-label">第 1 页</div>
+  <h2 style="border:none;font-size:1.75rem;text-align:center;margin-top:2rem;">R 中的计量经济学</h2>
+  <p style="text-align:center;font-size:1.15rem;">Grant V. Farnsworth<sup>∗</sup></p>
+  <p style="text-align:center;color:var(--muted);">2008 年 10 月 26 日</p>
+  <p style="margin-top:3rem;font-size:0.92rem;"><sup>∗</sup>本文最初写于助教工作期间，后来成为作者的个人参考资料。其中大部分内容是通过反复试错学到的，因此可能存在效率不高、不够准确或解释不完整之处。若发现次优之处或有改进建议，请告知作者。至少在 2009 年之前，可通过
+  <code>g-farnsworth@kellogg.northwestern.edu</code> 联系作者。</p>
+</section>
+
+<!-- ========== PAGE 2 ========== -->
+<section class="page" id="p2">
+  <div class="page-label">第 2 页</div>
+  <h2>目录</h2>
+  <ul class="toc">
+    <li><strong>1 引言</strong> <span class="pg">3</span></li>
+    <li class="l2">1.1 什么是 R？ <span class="pg">3</span></li>
+    <li class="l2">1.2 R 比其他软件包好在哪里？ <span class="pg">3</span></li>
+    <li class="l2">1.3 获取 R <span class="pg">3</span></li>
+    <li class="l2">1.4 交互式使用 R 与编写脚本 <span class="pg">4</span></li>
+    <li class="l2">1.5 获取帮助 <span class="pg">5</span></li>
+    <li><strong>2 处理数据</strong> <span class="pg">6</span></li>
+    <li class="l2">2.1 基本数据操作 <span class="pg">6</span></li>
+    <li class="l2">2.2 注意：数学运算与循环使用规则 <span class="pg">7</span></li>
+    <li class="l2">2.3 重要的数据类型 <span class="pg">8</span></li>
+    <li class="l3">2.3.1 向量 <span class="pg">8</span></li>
+    <li class="l3">2.3.2 数组、矩阵 <span class="pg">8</span></li>
+    <li class="l3">2.3.3 数据框 <span class="pg">9</span></li>
+    <li class="l3">2.3.4 列表 <span class="pg">9</span></li>
+    <li class="l3">2.3.5 S3 类 <span class="pg">9</span></li>
+    <li class="l3">2.3.6 S4 类 <span class="pg">10</span></li>
+    <li class="l2">2.4 处理日期 <span class="pg">10</span></li>
+    <li class="l2">2.5 合并数据框 <span class="pg">11</span></li>
+    <li class="l2">2.6 打开数据文件 <span class="pg">11</span></li>
+    <li class="l2">2.7 处理超大数据文件 <span class="pg">12</span></li>
+    <li class="l3">2.7.1 用 <code>scan()</code> 读取字段 <span class="pg">12</span></li>
+    <li class="l3">2.7.2 利用 Unix 工具 <span class="pg">12</span></li>
+    <li class="l3">2.7.3 用磁盘代替内存 <span class="pg">13</span></li>
+    <li class="l3">2.7.4 使用 RSQLite <span class="pg">13</span></li>
+    <li class="l2">2.8 发出系统命令——目录列表 <span class="pg">13</span></li>
+    <li class="l2">2.9 从剪贴板读取数据 <span class="pg">14</span></li>
+    <li class="l2">2.10 直接编辑数据 <span class="pg">14</span></li>
+    <li><strong>3 截面回归</strong> <span class="pg">14</span></li>
+    <li class="l2">3.1 普通最小二乘 <span class="pg">14</span></li>
+    <li class="l2">3.2 从回归中提取统计量 <span class="pg">15</span></li>
+    <li class="l2">3.3 异方差及相关问题 <span class="pg">16</span></li>
+    <li class="l3">3.3.1 异方差的 Breusch-Pagan 检验 <span class="pg">16</span></li>
+    <li class="l3">3.3.2 异方差（自相关）稳健协方差矩阵 <span class="pg">16</span></li>
+    <li class="l2">3.4 线性假设检验（Wald 与 F） <span class="pg">16</span></li>
+    <li class="l2">3.5 加权与广义最小二乘 <span class="pg">17</span></li>
+    <li class="l2">3.6 含因子/分组的模型 <span class="pg">17</span></li>
+    <li><strong>4 特殊回归</strong> <span class="pg">18</span></li>
+    <li class="l2">4.1 固定/随机效应模型 <span class="pg">18</span></li>
+    <li class="l3">4.1.1 固定效应 <span class="pg">18</span></li>
+    <li class="l3">4.1.2 随机效应 <span class="pg">19</span></li>
+    <li class="l2">4.2 定性响应 <span class="pg">19</span></li>
+    <li class="l3">4.2.1 Logit/Probit <span class="pg">19</span></li>
+    <li class="l3">4.2.2 多项 Logit <span class="pg">19</span></li>
+    <li class="l3">4.2.3 有序 Logit/Probit <span class="pg">20</span></li>
+    <li class="l2">4.3 Tobit 与删失回归 <span class="pg">20</span></li>
+    <li class="l2">4.4 分位数回归 <span class="pg">20</span></li>
+    <li class="l2">4.5 稳健回归——M 估计量 <span class="pg">20</span></li>
+    <li class="l2">4.6 非线性最小二乘 <span class="pg">20</span></li>
+    <li class="l2">4.7 单方程结构式的两阶段最小二乘 <span class="pg">21</span></li>
+    <li class="l2">4.8 方程组 <span class="pg">21</span></li>
+  </ul>
+</section>
+
+<!-- ========== PAGE 3 ========== -->
+<section class="page" id="p3">
+  <div class="page-label">第 3 页</div>
+  <ul class="toc">
+    <li class="l3">4.8.1 似不相关回归 <span class="pg">21</span></li>
+    <li class="l3">4.8.2 方程组的两阶段最小二乘 <span class="pg">21</span></li>
+    <li><strong>5 时间序列回归</strong> <span class="pg">22</span></li>
+    <li class="l2">5.1 差分与滞后 <span class="pg">22</span></li>
+    <li class="l2">5.2 滤波器 <span class="pg">23</span></li>
+    <li class="l3">5.2.1 现成的 AR 与 MA 滤波器 <span class="pg">23</span></li>
+    <li class="l3">5.2.2 手动滤波 <span class="pg">23</span></li>
+    <li class="l3">5.2.3 Hodrick-Prescott 滤波 <span class="pg">24</span></li>
+    <li class="l3">5.2.4 卡尔曼滤波 <span class="pg">24</span></li>
+    <li class="l2">5.3 ARIMA/ARFIMA <span class="pg">24</span></li>
+    <li class="l2">5.4 ARCH/GARCH <span class="pg">25</span></li>
+    <li class="l3">5.4.1 基本 GARCH——<code>garch()</code> <span class="pg">25</span></li>
+    <li class="l3">5.4.2 高级 GARCH——<code>garchFit()</code> <span class="pg">26</span></li>
+    <li class="l3">5.4.3 其他 GARCH——Ox G@RCH <span class="pg">26</span></li>
+    <li class="l2">5.5 相关图 <span class="pg">26</span></li>
+    <li class="l2">5.6 预测值 <span class="pg">27</span></li>
+    <li class="l2">5.7 时间序列检验 <span class="pg">27</span></li>
+    <li class="l3">5.7.1 自相关的 Durbin-Watson 检验 <span class="pg">27</span></li>
+    <li class="l3">5.7.2 自相关的 Box-Pierce 与 Breusch-Godfrey 检验 <span class="pg">27</span></li>
+    <li class="l3">5.7.3 单位根的 Dickey-Fuller 检验 <span class="pg">27</span></li>
+    <li class="l2">5.8 向量自回归（VAR） <span class="pg">28</span></li>
+    <li><strong>6 绘图</strong> <span class="pg">28</span></li>
+    <li class="l2">6.1 绘制经验分布 <span class="pg">29</span></li>
+    <li class="l2">6.2 等高线图 <span class="pg">29</span></li>
+    <li class="l2">6.3 添加图例等 <span class="pg">29</span></li>
+    <li class="l2">6.4 添加箭头、文本与标记 <span class="pg">30</span></li>
+    <li class="l2">6.5 多图 <span class="pg">30</span></li>
+    <li class="l2">6.6 保存图形——png、jpg、eps、pdf、xfig <span class="pg">31</span></li>
+    <li class="l2">6.7 在图中加入希腊字母与数学符号 <span class="pg">31</span></li>
+    <li class="l2">6.8 其他图形包 <span class="pg">32</span></li>
+    <li><strong>7 统计</strong> <span class="pg">32</span></li>
+    <li class="l2">7.1 常用统计分布 <span class="pg">32</span></li>
+    <li class="l2">7.2 P 值 <span class="pg">33</span></li>
+    <li class="l2">7.3 从数据中抽样 <span class="pg">34</span></li>
+    <li><strong>8 R 中的数学</strong> <span class="pg">34</span></li>
+    <li class="l2">8.1 矩阵运算 <span class="pg">34</span></li>
+    <li class="l3">8.1.1 矩阵代数与求逆 <span class="pg">34</span></li>
+    <li class="l3">8.1.2 分解 <span class="pg">35</span></li>
+    <li class="l2">8.2 数值优化 <span class="pg">35</span></li>
+    <li class="l3">8.2.1 无约束最小化 <span class="pg">35</span></li>
+    <li class="l3">8.2.2 带线性约束的最小化 <span class="pg">36</span></li>
+    <li class="l2">8.3 数值积分 <span class="pg">36</span></li>
+    <li><strong>9 编程</strong> <span class="pg">37</span></li>
+    <li class="l2">9.1 编写函数 <span class="pg">37</span></li>
+    <li class="l2">9.2 循环 <span class="pg">37</span></li>
+    <li class="l2">9.3 避免循环 <span class="pg">38</span></li>
+    <li class="l3">9.3.1 对数组（或其截面）应用函数 <span class="pg">38</span></li>
+    <li class="l3">9.3.2 重复执行 <span class="pg">38</span></li>
+    <li class="l2">9.4 条件语句 <span class="pg">39</span></li>
+    <li class="l3">9.4.1 二元运算符 <span class="pg">39</span></li>
+  </ul>
+</section>
+
+<!-- ========== PAGE 4 ========== -->
+<section class="page" id="p4">
+  <div class="page-label">第 4 页</div>
+  <ul class="toc">
+    <li class="l3">9.4.2 警告：条件与 NA <span class="pg">39</span></li>
+    <li class="l2">9.5 三元运算符 <span class="pg">39</span></li>
+    <li class="l2">9.6 输出文本 <span class="pg">40</span></li>
+    <li class="l2">9.7 暂停/获取输入 <span class="pg">40</span></li>
+    <li class="l2">9.8 为代码块计时 <span class="pg">40</span></li>
+    <li class="l2">9.9 从 R 调用 C 函数 <span class="pg">41</span></li>
+    <li class="l3">9.9.1 如何编写 C 代码 <span class="pg">41</span></li>
+    <li class="l3">9.9.2 如何使用已编译的函数 <span class="pg">41</span></li>
+    <li class="l2">9.10 从 C 调用 R 函数 <span class="pg">42</span></li>
+    <li><strong>10 更改配置</strong> <span class="pg">43</span></li>
+    <li class="l2">10.1 默认选项 <span class="pg">43</span></li>
+    <li class="l3">10.1.1 有效数字 <span class="pg">43</span></li>
+    <li class="l3">10.1.2 如何处理 NA <span class="pg">43</span></li>
+    <li class="l3">10.1.3 如何处理错误 <span class="pg">43</span></li>
+    <li class="l3">10.1.4 抑制警告 <span class="pg">44</span></li>
+    <li><strong>11 保存工作</strong> <span class="pg">44</span></li>
+    <li class="l2">11.1 保存数据 <span class="pg">44</span></li>
+    <li class="l2">11.2 保存会话输出 <span class="pg">44</span></li>
+    <li class="l2">11.3 保存为 LaTeX <span class="pg">45</span></li>
+    <li><strong>12 结语</strong> <span class="pg">45</span></li>
+    <li><strong>13 附录：代码示例</strong> <span class="pg">46</span></li>
+    <li class="l2">13.1 蒙特卡洛模拟 <span class="pg">46</span></li>
+    <li class="l2">13.2 Haar 小波 <span class="pg">46</span></li>
+    <li class="l2">13.3 最大似然估计 <span class="pg">47</span></li>
+    <li class="l2">13.4 从大文件中提取信息 <span class="pg">47</span></li>
+    <li class="l2">13.5 等高线图 <span class="pg">48</span></li>
+  </ul>
+</section>
+
+<!-- ========== PAGE 5 ========== -->
+<section class="page" id="p5">
+  <div class="page-label">第 5 页</div>
+  <h2>1 引言</h2>
+
+  <h3>1.1 什么是 R？</h3>
+  <p>R 是面向对象数学编程语言 S 的一种实现。它由世界各地的统计学家开发，是依据 GNU 通用公共许可证发布的自由软件。在语法与功能上，它与流行的统计软件包 S+ 非常相似（即便不完全相同）。</p>
+
+  <h3>1.2 R 比其他软件包好在哪里？</h3>
+  <p>对计量经济学家常用的多数软件而言，R 要灵活得多，因为它是一门现代数学编程语言，而不仅仅是“做回归和检验”的程序。这意味着我们的分析不必局限于默认安装所提供的函数。网上有大量且不断扩展的程序库，覆盖许多学科。研究者开发出新算法与流程后，相应的程序库会发布到 R 网站上。从这个意义上说，R 始终站在统计知识的前沿。又因 R 编程简便灵活，扩展起来也很容易。</p>
+  <p>S 语言事实上是统计科学的标准。阅读统计文献时，我们会发现例子甚至伪代码都用与 R 兼容的语法书写。由于多数用户有统计学背景，R 专家使用的术语有时与计量经济学家（尤其是初学者）的期望不同。本文的一个主要目的，就是消除这种语言隔阂，让计量经济学家能够利用这些富有创新精神的统计学家的工作成果。</p>
+  <p>为 R 编写的代码可在多种计算平台上运行，无论有无图形用户界面；并且 R 自带一些目前最灵活、最强大的图形例程。</p>
+  <p>当然，R 对任何用途都完全免费。</p>
+
+  <h3>1.3 获取 R</h3>
+  <p>可从 <a href="http://www.r-project.org">http://www.r-project.org</a> 免费下载 R 安装程序。因为 R 是编程语言而不只是计量经济学程序，我们关心的多数函数要通过从 R 网站获取的程序库（有时也称包）来使用。要获得标准安装未附带的库，请在上述网站点击 CRAN 链接。在 <code>contrib</code> 下可找到已压缩、可供下载的程序库列表。点击所需项目，保存到稍后能找到的位置。若使用图形界面，启动 R，在 Package 菜单下选择“从本地目录安装包”，再选择下载的文件。之后该包即可长期使用。若在 Linux 下使用 R，可在命令提示符执行：</p>
+  <pre><code>R CMD INSTALL packagename</code></pre>
+  <p>也可以在 R 内部一次完成下载与安装，例如：</p>
+  <pre><code>&gt; install.packages(c("car","systemfit"),repo="http://cran.stat.ucla.edu",dep=TRUE)</code></pre>
+  <p>这会安装 <code>car</code> 与 <code>systemfit</code> 库。<code>repo</code> 参数通常会自动配置，一般不必指定。<code>dependencies</code>（或 <code>dep</code>）表示 R 也应下载它们所依赖的包，建议开启。注意：必须拥有计算机的管理员（或 root）权限才能安装程序与包。</p>
+</section>
+
+<!-- ========== PAGE 6 ========== -->
+<section class="page" id="p6">
+  <div class="page-label">第 6 页</div>
+  <h3>本文提及的贡献包及其用途</h3>
+  <p>（* 表示默认已包含）</p>
+  <table class="pkg-table">
+    <thead><tr><th>包名</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>adapt</code></td><td>多元数值积分</td></tr>
+      <tr><td><code>car</code></td><td>回归检验与稳健标准误</td></tr>
+      <tr><td><code>DBI</code></td><td>与数据库交互</td></tr>
+      <tr><td><code>dse1</code></td><td>状态空间模型、卡尔曼滤波与向量 ARMA</td></tr>
+      <tr><td><code>filehash</code></td><td>大数据集用硬盘代替内存</td></tr>
+      <tr><td><code>fSeries</code></td><td>均值方程非平凡的 GARCH 模型</td></tr>
+      <tr><td><code>fracdiff</code></td><td>分数整合 ARIMA 模型</td></tr>
+      <tr><td><code>foreign*</code></td><td>从其他程序加载与保存数据</td></tr>
+      <tr><td><code>ggplot2</code></td><td>图形与绘图</td></tr>
+      <tr><td><code>graphics*</code></td><td>等高线图与图中箭头</td></tr>
+      <tr><td><code>grid</code></td><td>图形与绘图</td></tr>
+      <tr><td><code>Hmisc</code></td><td>导出 LaTeX</td></tr>
+      <tr><td><code>lattice</code></td><td>另一类等高线及其他图形</td></tr>
+      <tr><td><code>lmtest</code></td><td>Breusch-Pagan 与 Breusch-Godfrey 检验</td></tr>
+      <tr><td><code>MASS*</code></td><td>稳健回归、有序 logit/probit</td></tr>
+      <tr><td><code>Matrix</code></td><td>矩阵范数及其他矩阵代数</td></tr>
+      <tr><td><code>MCMCpack</code></td><td>逆伽马分布</td></tr>
+      <tr><td><code>MNP</code></td><td>通过 MCMC 的多项 probit</td></tr>
+      <tr><td><code>nlme*</code></td><td>非线性固定与随机效应模型</td></tr>
+      <tr><td><code>nls*</code></td><td>非线性最小二乘</td></tr>
+      <tr><td><code>nnet</code></td><td>多项 logit/probit</td></tr>
+      <tr><td><code>quantreg</code></td><td>分位数回归</td></tr>
+      <tr><td><code>R.matlab</code></td><td>读取 matlab 数据文件</td></tr>
+      <tr><td><code>RSQLite</code></td><td>与 SQL 数据库交互</td></tr>
+      <tr><td><code>sandwich</code>（及 <code>zoo</code>）</td><td>异方差与自相关稳健协方差</td></tr>
+      <tr><td><code>sem</code></td><td>两阶段最小二乘</td></tr>
+      <tr><td><code>survival*</code></td><td>Tobit 与删失回归</td></tr>
+      <tr><td><code>systemfit</code></td><td>方程组的 SUR 与 2SLS</td></tr>
+      <tr><td><code>ts*</code></td><td>时间序列操作函数</td></tr>
+      <tr><td><code>tseries</code></td><td>GARCH、ARIMA 及其他时间序列函数</td></tr>
+      <tr><td><code>VAR</code></td><td>向量自回归</td></tr>
+      <tr><td><code>xtable</code></td><td>另一种 LaTeX 导出</td></tr>
+      <tr><td><code>zoo</code></td><td>使用 <code>sandwich</code> 包所需</td></tr>
+    </tbody>
+  </table>
+  <p>不时可通过运行 <code>update.packages()</code> 更新已安装的包。</p>
+
+  <h3>1.4 交互式使用 R 与编写脚本</h3>
+  <p>我们可通过命令提示符直接与 R 交互。在 Windows 下，提示符与我们输入的内容一般为红色，返回的输出为蓝色——也可通过 Edit 菜单中的 “GUI preferences” 控制字体颜色。按向上箭头通常可循环浏览历史命令。注意：R 区分大小写，并且每个函数调用末尾都有括号。除直接输入命令外，也可加载事先写好的脚本文件，其中可包含新的函数定义。</p>
+  <p>脚本文件一般扩展名为 “.R”。这些文件包含与在提示符下输入相同的命令；凡超过几行的项目，都建议使用脚本。要加载名为 <code>mcmc.R</code> 的脚本，可使用：</p>
+  <pre><code>&gt; source("mcmc.R")</code></pre>
+  <p>一种用法是：在外部文本编辑器中打开脚本，再定期从 R 窗口运行。从脚本执行的命令打印到屏幕的输出，可能不如交互式运行时多。若希望达到交互级的详细程度，可使用 <code>echo</code> 参数：</p>
+</section>
+
+<!-- ========== PAGE 7 ========== -->
+<section class="page" id="p7">
+  <div class="page-label">第 7 页</div>
+  <pre><code>&gt; source("mcmc.R",echo=TRUE)</code></pre>
+  <p>若未指定脚本路径，R 假定文件位于当前工作目录。可用 R 命令查看或更改工作目录：</p>
+  <pre><code>&gt; getwd()
+[1] "/home/gvfarns/r"
+&gt; setwd("/home/gvfarns")
+&gt; getwd()
+[1] "/home/gvfarns"</code></pre>
+  <p>在 Windows 下也可通过菜单项 “change working directory”。另请注意：在较旧的 Windows 版 R 中，斜杠须换成双反斜杠。</p>
+  <pre><code>&gt; getwd()
+[1] "C:\\Program Files\\R\\rw1051\\bin"
+&gt; setwd("C:\\Program Files\\R\\scripts")
+&gt; getwd()
+[1] "C:\\Program Files\\R\\scripts"</code></pre>
+  <p>在 Linux 下也可用批处理（非交互）模式运行 R，命令为：<code>R CMD BATCH scriptname.R</code>。输出将保存到名为 <code>scriptname.Rout</code> 的文件。Windows 下同样有批处理模式，使用 <code>Rcmd.exe</code> 而非 <code>Rgui.exe</code>。</p>
+  <p>由于我们将使用的每个命令都是某个库中存储的函数，开始工作前往往需要先加载库。许多常用函数在默认加载的 <code>base</code> 库中。要使用其他任何函数，则须加载相应的库：</p>
+  <pre><code>&gt; library(foreign)</code></pre>
+  <p>这将加载包含读写其他程序（如 SAS、Stata）格式数据之函数的库。在 Windows 下，也可下拉 Package 菜单并选择 library。</p>
+
+  <h3>1.5 获取帮助</h3>
+  <p>在 R 中有多种获取帮助的方法：</p>
+  <pre><code>&gt; ?qt
+&gt; help(qt)
+&gt; help.start()
+&gt; help.search("covariance")</code></pre>
+  <p>在命令前加问号，或把它作为 <code>help()</code> 的参数，可得到用法与功能说明。<code>help.start()</code> 会打开帮助选项菜单；<code>help.search()</code> 则在帮助文件中搜索作为参数给出的词或短语。不过很多时候，最好的帮助来自网上搜索。搜索时请记住：R 的语法与功能与商业统计软件包 S+ 几乎相同。</p>
+  <p>上述帮助工具只搜索你计算机上已安装包中的 R 函数。我听到的大量 R 问题都形如：“R 有没有函数可以做……？”用户不知道功能是否存在，往往是因为相应包尚未安装。要在 R 网站上搜索函数与文献，可使用：</p>
+  <pre><code>&gt; RSiteSearch("Kalman Filter")</code></pre>
+  <p>搜索结果应会显示在你的网页浏览器中。</p>
+</section>
+
+<!-- ========== PAGE 8 ========== -->
+<section class="page" id="p8">
+  <div class="page-label">第 8 页</div>
+  <h2>2 处理数据</h2>
+
+  <h3>2.1 基本数据操作</h3>
+  <p>R 允许创建多种数据存储对象，如数值、向量、矩阵、字符串与数据框。<code>ls()</code> 列出当前所有可用数据对象；<code>rm()</code> 删除作为参数给出的数据对象。可用 <code>typeof()</code> 判断对象类型，或用通常更有信息量的 <code>class()</code> 查看其类。</p>
+  <p>输入对象名通常会把它的数据回显到屏幕。事实上，在 R 中函数也只是另一种数据成员。输入不带括号的函数名，即可看到其代码。</p>
+  <p>创建和/或给数据对象赋值的命令是小于号后接减号：</p>
+  <pre><code>&gt; g &lt;- 7.5</code></pre>
+  <p>这创建名为 <code>g</code>、值为 7.5 的数值对象。在需要区分时，R 中真正的向量（相对于一维矩阵）被当作<strong>列向量</strong>。</p>
+  <pre><code>&gt; f &lt;- c(7.5,6,5)
+&gt; F &lt;- t(f)</code></pre>
+  <p>用 <code>c()</code>（concatenate，连接）创建值为 7.5、6、5 的向量。<code>c()</code> 是可用于多种数据类型的泛型函数。<code>t()</code> 对 <code>f</code> 转置，得到 1×2 矩阵——因为“向量”总是列向量。由于 R 区分大小写，<code>f</code> 与 <code>F</code> 是不同对象。<code>cbind()</code> 把给定对象左右拼接：若是向量则成数组，若是带名称数据的列则成单个数据框。</p>
+  <pre><code>&gt; dat &lt;- cbind(c(7.5,6,5),c(1,2,3))</code></pre>
+  <p>类似地，<code>rbind()</code> 按行拼接——一个在另一个之上——并假定给定的向量是<strong>行向量</strong>（见 2.3.1）。</p>
+  <p>注意：若连接的是字符串而非数值，须给字符串加引号。也可使用 Hmisc 库中的 <code>Cs()</code>，它无需引号：</p>
+  <pre><code>&gt; Cs(Hey,you,guys)
+[1] "Hey" "you" "guys"</code></pre>
+  <p>向量及类似数据类型用方括号索引。R 使用从 1 开始的索引。</p>
+  <pre><code>&gt; f
+[1] 7.5 6.0 5.0
+&gt; f[2]
+[1] 6</code></pre>
+  <p>对多维类型（如矩阵与数据框），某一维索引留空表示该维整列或整行。因此若 <code>foo</code> 是 4×5 数值数组：</p>
+  <pre><code>&gt; foo</code></pre>
+  <p>会打印整个数组；</p>
+  <pre><code>&gt; foo[1,]</code></pre>
+  <p>打印第一行；</p>
+  <pre><code>&gt; foo[,3]</code></pre>
+  <p>打印第三列，等等。可用 <code>summary()</code> 得到数据摘要统计，用 <code>NROW()</code>、<code>NCOL()</code> 了解维数。更一般地，对许多 R 对象可用 <code>dim()</code> 获取维度。</p>
+  <p>若只想提取或打印某些行或列，可用连接运算符。</p>
+</section>
+
+<!-- ========== PAGE 9 ========== -->
+<section class="page" id="p9">
+  <div class="page-label">第 9 页</div>
+  <pre><code>&gt; oddfoo &lt;- foo[,c(1,3,5)]</code></pre>
+  <p>从 <code>foo</code> 的第 1、3、5 列得到 4×3 数组并存入 <code>oddfoo</code>。在索引前加负号可去掉某些列：</p>
+  <pre><code>&gt; nooddfoo &lt;- foo[,-c(1,3,5)]</code></pre>
+  <p>从第 2、4 列得到 4×2 数组（即去掉第 1、3、5 列）。也可用比较运算符提取某些列或行：</p>
+  <pre><code>&gt; smallfoo &lt;- foo[foo[,1]&lt;1,]</code></pre>
+  <p>把 <code>foo</code> 第一列每个元素与 1 比较，把匹配的行放入 <code>smallfoo</code>。还可重排数据。若 <code>wealth</code> 是含 <code>year</code>、<code>gdp</code>、<code>gnp</code> 列的数据框，可用 <code>order()</code> 按年份排序，或用冒号运算符提取某段年份：</p>
+  <pre><code>&gt; wealth &lt;- wealth[order(wealth$year),]
+&gt; firstten &lt;- wealth[1:10,]
+&gt; eighty &lt;- wealth[wealth$year==1980,]</code></pre>
+  <p>这按年份排序，并把前十年放入 <code>firstten</code>。1980 年的所有行存入 <code>eighty</code>（注意双等号）。</p>
+  <p>索引用双方括号而非单方括号时行为略有不同。基本上，它不允许像单括号那样用索引向量引用多个对象。例如：</p>
+  <pre><code>&gt; w[[1:10]]</code></pre>
+  <p>不会像单括号那样返回 <code>w</code> 的前十个元素组成的向量。此外，它会剥去属性与类型。若变量是列表，单括号索引得到含数据的列表，双括号返回数据本身（向量）。从列表取值时多数情况要用双括号，否则单括号更常见。</p>
+  <p>偶尔数据形式不对（例如是数据框但我们更想要矩阵）。此时可用 <code>as.</code> 系列功能。若 <code>goo</code> 中全部为数值，可用下式放入名为 <code>mgoo</code> 的矩阵：</p>
+  <pre><code>&gt; mgoo &lt;- as.matrix(goo)</code></pre>
+  <p>其他数据操作见标准 R 手册与网上资料，数量很多。</p>
+
+  <h3>2.2 注意：数学运算与循环使用规则</h3>
+  <p>加、乘等数学运算默认按元素进行。矩阵代数运算一般用 <code>%</code> 包围（见第 8 节）。危险在于：对不同大小的某些对象做运算时，R 不会像人们预期的那样中止并报错，而是用<strong>循环使用规则（recycling rule）</strong>决定如何计算——即重复较小对象中的值。例如：</p>
+  <pre><code>&gt; a&lt;-c(1,3,5,7)
+&gt; b&lt;-c(2,8)
+&gt; a+b
+[1] 3 11 7 15</code></pre>
+  <p>仅当维数不是彼此的倍数时，R 才给出警告（但仍会计算）：</p>
+  <pre><code>&gt; a&lt;-c(2,4,16,7)
+&gt; b&lt;-c(2,8,9)
+&gt; a+b</code></pre>
+</section>
+
+<!-- ========== PAGE 10 ========== -->
+<section class="page" id="p10">
+  <div class="page-label">第 10 页</div>
+  <pre><code>[1] 4 12 25 9
+Warning message:
+longer object length
+is not a multiple of shorter object length in: a + b</code></pre>
+  <p>乍看循环使用规则像是笨主意（程序员不小心时确实会出错），但正是它使标量加、标量乘向量/矩阵（以及向量与矩阵相加）成为可能。在 R 中做按元素运算时，只需对维数格外小心。</p>
+  <p>注意：虽然向量与其他向量或数据类型相加时会循环使用，但两个矩阵相加时不会。不同维数的矩阵或数组相加会产生错误。</p>
+
+  <h3>2.3 重要的数据类型</h3>
+
+  <h4>2.3.1 向量</h4>
+  <p>R 中最基本的数值数据类型是未命名向量。标量实际上是长度为 1 的向量。向量比一维矩阵更抽象，因为它们不含“行向量还是列向量”的信息——尽管必须区分时，R 通常假定向量是列。</p>
+  <p>这种脱离行/列的抽象，常使熟悉 Matlab 等面向矩阵语言的人感到困惑。可用一例说明：</p>
+  <pre><code>a&lt;-c(1,2,3)
+b&lt;-c(4,6,8)</code></pre>
+  <p>现在可竖直或水平堆叠成矩阵；R 分别假定这些向量是列或行：</p>
+  <pre><code>&gt; cbind(a,b)
+  a b
+[1,] 1 4
+[2,] 2 6
+[3,] 3 8
+&gt; rbind(a,b)
+  [,1] [,2] [,3]
+a    1    2    3
+b    4    6    8</code></pre>
+  <p>一个函数把它们当作列向量，另一个当作行向量。要点是：向量不是一维矩阵，不要指望它们在线性代数世界中那样工作。要把向量转为用于线性代数运算的 1×N 矩阵（列向量），请用 <code>as.matrix()</code>。</p>
+  <p>注意 <code>t()</code> 返回矩阵，因此 <code>t(t(a))</code> 与 <code>a</code> 并不相同。</p>
+
+  <h4>2.3.2 数组、矩阵</h4>
+  <p>在 R 中，同质（所有元素类型相同）的多元数据可存为数组或矩阵。矩阵是二维对象，而数组可以有很多维。这些类型可有（也可没有）给列或行命名的特殊属性（但不能像数据框那样用 <code>$</code> 引用列），且只能保存数值数据。注意：不能把数值与字符等两种不同类型放进同一个矩阵、数组或向量。要么会被强制为同一类型，要么会报错。</p>
+</section>
+
+<!-- ========== PAGE 11 ========== -->
+<section class="page" id="p11">
+  <div class="page-label">第 11 页</div>
+
+  <h4>2.3.3 数据框</h4>
+  <p>大多数计量数据会以数据框（dataframe）的形式存在。数据框是一组向量的集合（可把它们想成列），各列数据类型不必相同，但每一列的元素个数必须相同。每列都有一个标题，可用标题引用整列向量。若 <code>goo</code> 是一个 3×4 的数据框，列名为 <code>age</code>、<code>gender</code>、<code>education</code> 和 <code>salary</code>，则可用下列命令打印 <code>salary</code> 列：</p>
+  <pre><code>&gt; goo$salary</code></pre>
+  <p>或查看 <code>goo</code> 的列名：</p>
+  <pre><code>&gt; names(goo)</code></pre>
+  <p>大多数数学运算对多维数据按元素作用（与 matlab 等某些数学语言不同）。接上例，</p>
+  <pre><code>&gt; salarysq &lt;- (goo$salary)^2</code></pre>
+  <p>会创建一个单列数据框，列名为 <code>salary</code>，元素为 <code>goo$salary</code> 对应项的平方。运算结果也可写回原变量，例如：</p>
+  <pre><code>&gt; salarysq &lt;- sqrt(salarysq)</code></pre>
+  <p>会把 <code>salarysq</code> 中每个元素替换为其平方根。</p>
+  <pre><code>&gt; goo$lnsalary &lt;- log(salarysq)</code></pre>
+  <p>会在 <code>goo</code> 中新增名为 <code>lnsalary</code> 的列，内容为工资的对数。</p>
+
+  <h4>2.3.4 列表</h4>
+  <p>列表（list）比数据框更一般。它本质上是把一堆数据对象绑在一起，并可选择性地给每个对象命名。这些对象可以是标量、字符串、数据框或任何其他类型。返回多种数据的函数（如 <code>summary()</code>）通常把返回值绑成列表，因为函数只能返回一个数据对象。与数据框类似，可用 <code>names()</code> 查看列表中有哪些对象（若有名称），并可用 <code>$</code> 按名称引用，或用方括号按编号引用。<strong>请记住：引用列表成员一般用双括号而非单括号（见 2.1 节）。</strong>有时我们希望把列表简化成向量。例如，<code>strsplit()</code> 返回包含参数子串的列表；要得到字符串向量，须用 <code>unlist()</code> 把列表转成向量。列表有时很烦人，因而 <code>unlist()</code> 是出人意料地有用的函数。</p>
+
+  <h4>2.3.5 S3 类</h4>
+  <p>许多函数返回像列表一样含多种数据的对象，但又希望 R 知道它是何种对象。带有指定列表类型的 <code>"class"</code> 属性的列表就是 S3 类。若该类作为参数传入，R 会先搜索名称匹配的函数。若 <code>x</code> 属于类 <code>foo</code>，并用</p>
+  <pre><code>&gt; print(x)</code></pre>
+  <p>打印它，则 <code>print()</code> 例程先搜索名为 <code>print.foo()</code> 的函数，若存在则使用；否则使用通用的 <code>print.default()</code>。例如，若 <code>x</code> 是 <code>lm()</code> 调用的输出，则</p>
+  <pre><code>&gt; print(x)</code></pre>
+  <p>会调用 <code>print.lm(x)</code>，以有意义且美观的方式打印回归输出。S3 列表用起来很简单。它们其实就是带有额外属性的列表。我们可用 <code>class()</code> 函数创建，或在创建列表后直接添加 class 属性。</p>
+</section>
+
+<!-- ========== PAGE 12 ========== -->
+<section class="page" id="p12">
+  <div class="page-label">第 12 页</div>
+  <pre><code>&gt; h &lt;- list(a=rnorm(3),b="This shouldn’t print")
+&gt; class(h) &lt;- "myclass"
+&gt; print.myclass&lt;-function(x){cat("A is:",x$a,"\n")}
+&gt; print(h)
+A is: -0.710968 -1.611896 0.6219214</code></pre>
+  <p>若不先指定 class 就调用 <code>print()</code>，结果会不同。</p>
+  <p>许多 R 包会扩展 <code>print()</code>、<code>summary()</code>、<code>plot()</code> 等常用泛型函数，以作用于该包产生的特定类。R 能根据传入数据的类选择要执行的函数，这使与新类交互非常方便。另一方面，许多扩展有其特有选项，因此必须阅读该扩展的帮助文件才能最好地使用它。例如，应这样查阅回归打印例程：</p>
+  <pre><code>&gt; ?summary.lm</code></pre>
+  <p>而不是</p>
+  <pre><code>&gt; ?summary</code></pre>
+
+  <h4>2.3.6 S4 类</h4>
+  <p>S4 类是 R 较新的补充。它们与 S3 类一样可泛型地保存数据与函数，但有一些超出本文范围的技术优势。就我们的目的而言，S3 与 S4 最重要的区别是：后者的属性用 <code>@</code> 而非 <code>$</code> 引用，并且只能用 <code>new()</code> 命令创建。</p>
+  <pre><code>&gt; g &lt;- garchFit(~arma(0,1)+garch(2,3),y)
+&gt; fitvalues &lt;- g@fit</code></pre>
+
+  <h3>2.4 处理日期</h3>
+  <p>R 内部存储日期的标准方式是 <code>Date</code> 类对象。这允许诸如用一个日期减去另一个日期得到其间天数等操作。要把数据转换成日期，使用 <code>as.Date()</code>。该函数接受字符字符串与格式参数。若日期向量以数值格式存储（如 <code>"20050627"</code>），应先用 <code>as.character()</code> 转成字符串。<code>format</code> 参数告诉代码字符串的哪一部分对应日期的哪一部分。四位年份为 <code>%Y</code>，两位年份为 <code>%y</code>，数值月份为 <code>%m</code>，字母缩写月份为 <code>%b</code>，完整字母月份为 <code>%B</code>，日为 <code>%d</code>。其他代码见 <code>strptime</code> 的帮助。例如，若 <code>d</code> 是格式如 <code>"2005-Jun-27"</code> 的日期向量，可用</p>
+  <pre><code>&gt; g&lt;-as.Date(d,format="%Y-%b-%d")</code></pre>
+  <p>在内部，<code>Date</code> 对象是数值量，因此占用内存很少。</p>
+  <p>可用 <code>format()</code> 做 <code>as.Date()</code> 的逆操作——格式化或提取 <code>Date</code> 对象的部分。例如，给定像 <code>"20040421"</code> 这样的数字列，可用下列方式提取代表年份的字符串：</p>
+  <pre><code>&gt; year&lt;-format(as.Date(as.character(v$DATE),format="%Y%m%d"),format="%Y")</code></pre>
+  <p>虽然可用 <code>format()</code> 以字符串或数值形式提取星期信息，但更简单的接口是 <code>weekdays()</code> 函数。</p>
+  <pre><code>&gt; mydates&lt;-as.Date(c("19900307","19900308"),format="%Y%m%d")
+&gt; weekdays(mydates)
+[1] "Wednesday" "Thursday"</code></pre>
+</section>
+
+<!-- ========== PAGE 13 ========== -->
+<section class="page" id="p13">
+  <div class="page-label">第 13 页</div>
+  <p>注意：要得到有效日期，必须有年、月、日。若使用月度数据，需要把每个数据点赋给例如该月的第一天。对于形如 <code>"041985"</code> 的数值格式（前两位为月、后四位为年），可简单地给该数加上 10,000,000，转成字符串，再用格式 <code>"%d%m%Y"</code>。对于形如 <code>"April 1985"</code> 的字符串日期，可用</p>
+  <pre><code>&gt; as.Date(paste("1 ",v$DATE),format="%d %B %Y")</code></pre>
+  <p>注意：为使 <code>paste</code> 正确工作，<code>v$DATE</code> 必须是字符字符串向量。某些读取方法默认会把字符串自动转为因子，可通过向读取方法传入 <code>as.is=T</code> 关键字，或用 <code>as.character()</code> 转回来纠正。</p>
+
+  <h3>2.5 合并数据框</h3>
+  <p>若有两个覆盖同一时期或同一观测、但未完全对齐的数据框，可用 <code>merge()</code> 合并。既可指定用于对齐的列，也可让 <code>merge()</code> 尝试识别两者共有的列名。</p>
+  <p>例如，若 <code>B</code> 是某段时期债券价格的数据框，且有名为 <code>date</code> 的列存放观测日期，<code>E</code> 是大致同期的股票价格数据框，可用</p>
+  <pre><code>&gt; OUT&lt;-merge(B,E)</code></pre>
+  <p>把它们合并成一个数据框。若日期列在 <code>B</code> 中叫 <code>date</code>、在 <code>E</code> 中叫 <code>day</code>，则命令改为</p>
+  <pre><code>&gt; OUT&lt;-merge(B,E,by.x="date",by.y="day")</code></pre>
+  <p>注意：默认情况下，<code>merge()</code> 只包含 <code>B</code> 与 <code>E</code> 中都有数据的行。若要在空位填入 <code>NA</code> 而不是省略行，可加入 <code>all=T</code> 关键字。也可用 <code>all.x</code> 与 <code>all.y</code> 关键字分别指定是否只从一方纳入带 <code>NA</code> 的行。</p>
+
+  <h3>2.6 打开数据文件</h3>
+  <p>R 能读取多种格式的数据。最常见的是按列分隔、每列上方有描述表头的文本文件。若 <code>blah.dat</code> 是此类文本文件且位于 Windows 桌面，可用命令</p>
+  <pre><code>&gt; mydata &lt;- read.table("C:/WINDOWS/Desktop/blah.dat",header=TRUE)</code></pre>
+  <p>读取。此时 <code>mydata</code> 是带命名列的数据框，可进行分析。注意：若省略 <code>header=TRUE</code> 参数，R 会假定列没有标签并给出默认列名。现在假设不是 <code>blah.dat</code> 而是 Stata 文件 <code>blah.dta</code>。</p>
+  <pre><code>&gt; library(foreign)
+&gt; mydata &lt;- read.dta("C:/WINDOWS/Desktop/blah.dta")</code></pre>
+  <p>Stata 文件自动带有表头。</p>
+  <p>另一种可读取的格式是 <code>.csv</code> 逗号分隔文件（如电子表格导出的文件）。它们与上文类似，但用标点分隔列与行。不用 <code>read.table()</code>，而用 <code>read.csv()</code>。固定宽度文件可用 <code>read.fwf()</code> 读取。</p>
+  <p>Matlab（<code>.mat</code>）文件可用 <code>R.matlab</code> 包中的 <code>readMat()</code> 读取。同包中的 <code>writeMat()</code> 用于写出 Matlab 数据文件。</p>
+</section>
+
+<!-- ========== PAGE 14 ========== -->
+<section class="page" id="p14">
+  <div class="page-label">第 14 页</div>
+
+  <h3>2.7 处理超大数据文件</h3>
+  <p>R 对象可以大到物理内存（以及操作系统）允许的程度，但它并非为超大数据集设计。这意味着极大对象会严重拖慢一切，并贪婪地吞噬 RAM。<code>read.table()</code> 系列例程假定我们不处理超大数据集，因而并不特别节省内存<sup>1</sup>。它们一次载入全部数据，并很可能至少再复制一份。处理巨大数据集的更好方式是一次读入一行（或一组行）。我们通过连接（connection）来做这件事。连接是指向文件或其他输入/输出流的 R 对象。每次从连接读取时，文件中的读取位置会向前移动。</p>
+  <p>使用连接前，若数据源是文件须用 <code>file()</code> 创建，若是在线源则用 <code>url()</code>（还有其他类型的连接）。然后用 <code>open()</code> 打开。现在可用 <code>readLines()</code> 读取一行或多行文本，用 <code>scan()</code> 读取数据字段，或用 <code>cat()</code> 或 <code>write.table()</code> 系列例程写出数据。完成后用 <code>close()</code> 关闭。</p>
+
+  <h4>2.7.1 用 <code>scan()</code> 读取数据字段</h4>
+  <p>从巨大文件中读取数据字段是很常见的任务，因此特别说明。<code>scan()</code> 最重要的参数是 <code>what</code>，它指定要读入的数据类型。若文件含多列数据，<code>what</code> 应为列表，列表的每个成员代表一列。例如，若文件中是姓名后跟逗号分隔符再跟年龄，可用</p>
+  <pre><code>&gt; a &lt;- scan(f,what=list(name="",age=0),sep=",",nlines=1)</code></pre>
+  <p>读取单行，其中 <code>f</code> 是已打开的连接。此时 <code>a</code> 是带有字段 <code>name</code> 与 <code>age</code> 的列表。例 13.4 展示了如何从大文件读取。</p>
+  <p>若连接已到达文件末尾仍尝试 <code>scan</code>，则 <code>scan()</code> 返回空列表。可用 <code>length()</code> 检查以终止循环。</p>
+  <p>我们常常知道每行有多少字段，并希望确保 <code>scan()</code> 读到全部字段，缺失的用 <code>NA</code> 填充。为此指定 <code>fill=T</code>。注意在许多情况下 <code>scan()</code> 本来也会用 <code>NA</code> 填充空字段。</p>
+  <p>不幸的是，若 <code>scan</code> 读到的数据与期望不符，会返回错误。例如，若上例年龄列出现字符串 <code>"UNK"</code>，就会出错。若只有少数几种例外，可把它们作为 <code>na.strings</code> 传给 <code>scan()</code>。否则需要先把数据读成字符串，再用 <code>as.numeric()</code> 或其他工具转换成数值等类型。</p>
+  <p>注意：一次读一行并非最快方式。R 可轻松一次读 100、1000 或更多行。增加每次迭代读取的行数可显著加快大文件读取。对大文件，可每次读 1000 行、变换后再向另一个打开的连接写出 1000 行，从而保持系统内存空闲。</p>
+  <p>若全部数据类型相同且属于同一对象（例如 2000×2000 数值矩阵），可不用 <code>nlines</code> 参数调用 <code>scan()</code>，从而获得快得多的读取。所得向量只需再转换成矩阵类型。</p>
+
+  <h4>2.7.2 利用 Unix 工具</h4>
+  <p>若在 linux/unix 机器上使用 R<sup>2</sup>，可用各种 unix 工具（如 <code>grep</code> 与 <code>awk</code>）只读取文件中你想要的列与行。<code>grep</code> 工具可筛出包含或不包含指定模式的行。编程语言 <code>awk</code> 是面向记录的工具，可按多种准则抽出并操作列与行。</p>
+  <p style="font-size:0.9rem;"><sup>1</sup>根据 <code>read.table()</code> 的帮助文件，可通过 <code>nrows</code> 参数告知行数来改善内存使用。在 unix/linux 上可用 <code>wc -l</code> 获得文本文件行数。<br>
+  <sup>2</sup>感谢 Wayne Folta 提供这些建议。</p>
+</section>
+
+<!-- ========== PAGE 15 ========== -->
+<section class="page" id="p15">
+  <div class="page-label">第 15 页</div>
+  <p>其中一些工具在 R 内部也很有用。例如，可根据将要读入的记录（行）数预先分配数据框。要知道上例中应分配多大的数据框，可用</p>
+  <pre><code>&gt; howmany &lt;- as.numeric(system ("grep -c ',C,' file.dat"))</code></pre>
+  <p>由于分配与重新分配内存是 <code>scan()</code> 循环中耗时的部分之一，这样可节省大量时间并减少麻烦。若只想确定行数，可用工具 <code>wc</code>。</p>
+  <pre><code>&gt; totalrows &lt;- as.numeric(strsplit(system("wc -l Week.txt",intern=T),split=" ")[[1]][1])</code></pre>
+  <p>这里 <code>system()</code> 返回行数，但也带有文件名；<code>strsplit()</code> 把输出拆成词，然后我们把第一个词转成数字。</p>
+  <p>结论是：应为正确的工作选用正确的工具。像 <code>grep</code>、<code>awk</code> 和 <code>wc</code> 这样的 Unix 工具，可以是在 R 中节省大量工作的快速而粗糙的办法。</p>
+
+  <h4>2.7.3 用磁盘代替内存</h4>
+  <p>不幸的是，R 默认只使用系统 RAM。因此若加载的数据集非常大，操作系统很可能无法为其分配足够大的一块系统 RAM，导致程序终止并提示 R 无法分配该大小的向量。虽然 R 没有内置磁盘缓存系统，但有一个名为 <code>filehash</code> 的包，允许把变量存在磁盘上而非系统 RAM 中。这显然会更慢，但至少只要有足够磁盘空间且文件大小未超出操作系统限制，程序就能运行。有时这至关重要。</p>
+  <p>我们不把文件读入内存，而是读入数据库并把该数据库加载为环境：</p>
+  <pre><code>&gt; dumpDF(read.table("large.txt", header=T), dbName="mydb")
+&gt; myenv&lt;-db2env(db="mydb")</code></pre>
+  <p>现在可用 <code>with()</code> 在该环境中操作数据：</p>
+  <pre><code>&gt; with(mydb, z&lt;-y+x )</code></pre>
+  <p>实际上我还没花太多时间用这个包，对细节不熟，但它看起来很有前途<sup>3</sup>。</p>
+
+  <h4>2.7.4 使用 RSQLite</h4>
+  <p>处理大数据集的最佳方式常常是把它们存在 SQL 数据库中，然后从 R 内部用 mySQL 或 SQLite 只查询需要的内容。该功能可通过 <code>RSQLite</code> 与 <code>DBI</code> 库获得。</p>
+
+  <h3>2.8 发出系统命令——目录列表</h3>
+  <p>有时我们想从 R 内部向操作系统发出命令。例如，在 unix 下可能想得到当前目录中以字母 x 开头的文件列表。可用</p>
+  <pre><code>&gt; system("ls x*")
+xaa xab xac xad xae</code></pre>
+  <p>执行该命令。若要把命令输出保存为 R 对象，使用关键字 <code>intern</code>：</p>
+  <pre><code>&gt; files &lt;- system("ls x*",intern=T)</code></pre>
+  <p style="font-size:0.9rem;"><sup>3</sup>更多信息见 http://yusung.blogspot.com/2007/09/dealing-with-large-data-set-in-r.html</p>
+</section>
+
+<!-- ========== PAGE 16 ========== -->
+<section class="page" id="p16">
+  <div class="page-label">第 16 页</div>
+
+  <h3>2.9 从剪贴板读取数据</h3>
+  <p>从电子表格、数据库管理器等其他应用程序导入时，最快的方式是在另一应用中高亮选中数据、复制到桌面剪贴板，然后从剪贴板读取。R 把剪贴板当作文件对待，因此使用标准的 <code>read.table()</code> 命令：</p>
+  <pre><code>&gt; indata &lt;- read.table("clipboard")</code></pre>
+
+  <h3>2.10 直接编辑数据</h3>
+  <p>R 有内置的类似电子表格的数据编辑界面。它并不很先进，但应急时有用。假设 <code>a</code> 是数据框，可用</p>
+  <pre><code>&gt; data.entry(a)</code></pre>
+  <p>就地编辑。我们所做的任何更改（包括更改某列所含数据类型）会立即反映在 <code>a</code> 中。若想把更改后的数据保存到另一变量，可用</p>
+  <pre><code>&gt; b &lt;- de(a)</code></pre>
+  <p>注意 <code>de()</code> 与 <code>data.entry()</code> 都返回类型为 <code>list</code> 的变量。若我们想要的是数据框，则编辑后需要再转换回来。</p>
+  <p>函数 <code>edit()</code> 类似 <code>de()</code>，但适用于许多不同数据类型。实际中它会调用 <code>de()</code> 或系统默认文本编辑器（通过 <code>options()</code> 设置）。</p>
+  <p>类似有用的函数是 <code>fix()</code>，它就地编辑 R 对象。<code>fix()</code> 可作用于任何种类的数据：数据框用 <code>de()</code> 打开，函数用文本编辑器打开。这对快速编辑数据或代码都很有用。</p>
+
+  <h3>3 截面回归</h3>
+
+  <h3>3.1 普通最小二乘</h3>
+  <p>考虑最简单的情形。假设有名为 <code>byu</code> 的数据框，含有 <code>age</code>、<code>salary</code> 与 <code>exper</code> 列。我们想把各种形式的 <code>age</code> 与 <code>exper</code> 对 <code>salary</code> 回归。简单线性回归可以是</p>
+  <pre><code>&gt; lm(byu$salary ~ byu$age + byu$exper)</code></pre>
+  <p>或者：</p>
+  <pre><code>&gt; lm(salary ~ age + exper,data=byu)</code></pre>
+  <p>第三种选择是“附着”数据框，使其列可作为普通变量使用：</p>
+  <pre><code>&gt; attach(byu)
+&gt; lm(salary ~ age + exper)</code></pre>
+  <p>注意模型参数的语法（使用波浪号）。上述命令对应于线性模型</p>
+  <p>salary = β<sub>0</sub> + β<sub>1</sub> age + β<sub>2</sub> exper + ε　　(1)</p>
+  <p>使用 <code>lm()</code> 会把简略摘要送到屏幕，只给出 β 系数估计。要做更详尽的分析，可把结果保存为数据成员或“拟合模型”：</p>
+  <pre><code>&gt; result &lt;- lm(salary ~ age + exper + age*exper,data=byu)
+&gt; summary(result)
+&gt; myresid &lt;- result$resid
+&gt; vcov(result)</code></pre>
+</section>
+
+<!-- ========== PAGE 17 ========== -->
+<section class="page" id="p17">
+  <div class="page-label">第 17 页</div>
+  <p>对原始数据（如 <code>byu$age</code>）运行 <code>summary()</code> 会给出均值、中位数等统计量（这些也可通过各自的函数 <code>mean</code> 与 <code>median</code> 获得）。对 ols 对象运行时，<code>summary</code> 给出回归的重要统计量，如 p 值与 R<sup>2</sup>。</p>
+  <p>残差及其他若干数据也可从 <code>result</code> 中提取，用于其他计算。方差–协方差矩阵（关于 beta 系数的）可通过 <code>vcov()</code> 命令访问。</p>
+  <p>注意：允许更复杂的公式，包括交互项（用两个数据成员相乘指定）以及 <code>log()</code>、<code>sqrt()</code> 等函数。不幸的是，要包含幂项（如年龄平方），必须先计算这些值再跑回归，或使用 <code>I()</code> 运算符——它强制在求值公式之前先计算其参数：</p>
+  <pre><code>&gt; salary$agesq &lt;- (salary$age)^2
+&gt; result &lt;- lm(salary ~ age + agesq + log(exper) + age*log(exper),data=byu)</code></pre>
+  <p>或者</p>
+  <pre><code>&gt; result &lt;- lm(salary ~ age + I(age^2) + log(exper) + age*log(exper),data=byu)</code></pre>
+  <p>注意：若省略 <code>I()</code> 且不显式生成幂项变量（如 <code>agesq</code>），则 <code>lm()</code> 不会按预期行为<sup>4</sup>，但也不会给出错误或警告，因此必须小心。</p>
+  <p>要跑不含截距的回归，只需显式指定截距，传统上用零：</p>
+  <pre><code>&gt; result &lt;- lm(smokes ~ 0 + male + female ,data=smokerdata)</code></pre>
+
+  <h3>3.2 从回归中提取统计量</h3>
+  <p>回归最重要的统计量与参数保存在 <code>lm</code> 对象或 <code>summary</code> 对象中。考虑上面的吸烟例子：</p>
+  <pre><code>&gt; output &lt;- summary(result)
+&gt; SSR &lt;- deviance(result)
+&gt; LL &lt;- logLik(result)
+&gt; DegreesOfFreedom &lt;- result$df
+&gt; Yhat &lt;- result$fitted.values
+&gt; Coef &lt;- result$coefficients
+&gt; Resid &lt;- result$residuals
+&gt; s &lt;- output$sigma
+&gt; RSquared &lt;- output$r.squared
+&gt; CovMatrix &lt;- s^2*output$cov
+&gt; aic &lt;- AIC(result)</code></pre>
+  <p>其中 SSR 是残差平方和，LL 是对数似然统计量，Yhat 是拟合值向量，Resid 是残差向量，s 是误差的估计标准差（假定同方差），CovMatrix 是系数的方差–协方差矩阵（也可通过 <code>vcov()</code> 获得），aic 是赤池信息准则，其他统计量名如其字面含义。</p>
+  <p>注意 R 对 AIC 准则的定义为</p>
+  <p>AIC = −2 log L(p) + 2p</p>
+  <p>其中 p 是估计参数个数，L(p) 是似然。有些计量经济学家更愿意把 AIC/N 称为信息准则。要得到贝叶斯信息准则（或 Schwartz 贝叶斯准则），我们使用 AIC 但指定不同的“惩罚”参数，如下：</p>
+  <pre><code>&gt; sbc &lt;- AIC(result,k=log(NROW(smokerdata)))</code></pre>
+  <p>这意味着</p>
+  <p>SBC = −2 log L(p) + p log(N)</p>
+  <p style="font-size:0.9rem;"><sup>4</sup>一般它只是省略那些一次幂已包含在回归中的幂项。</p>
+</section>
+
+<!-- ========== PAGE 18 ========== -->
+<section class="page" id="p18">
+  <div class="page-label">第 18 页</div>
+
+  <h3>3.3 异方差及相关问题</h3>
+
+  <h4>3.3.1 异方差的 Breusch-Pagan 检验</h4>
+  <p>为检验是否存在异方差，可用 <code>lmtest</code> 包中的 Breusch-Pagan 检验。或者可用 <code>car</code> 包中的 <code>ncv.test()</code> 函数。它们用法大体相同。跑完回归后，把拟合的回归传给 <code>bptest()</code> 函数。</p>
+  <pre><code>&gt; unrestricted &lt;- lm(z~x)
+&gt; bptest(unrestricted)
+Breusch-Pagan test
+data: unrestricted
+BP = 44.5465, df = 1, p-value = 2.484e-11</code></pre>
+  <p>这执行的是检验的“学生化”版本。为与某些其他软件（包括 <code>ncv.test()</code>）一致，可指定 <code>studentize=FALSE</code>。</p>
+
+  <h4>3.3.2 异方差（自相关）稳健协方差矩阵</h4>
+  <p>在存在异方差时，ols 估计仍无偏，但对 beta 系数方差的 ols 估计不再正确。要计算异方差一致协方差矩阵<sup>5</sup>，我们用 <code>hccm()</code> 函数（来自 <code>car</code> 库）代替 <code>vcov()</code>。对角元是方差，非对角元是协方差项。</p>
+  <p>该功能也可通过 <code>sandwich</code> 包中的 <code>vcovHC()</code> 命令获得。同包中还有异方差与自相关稳健的 Newey-West 估计量，可用函数 <code>vcovHAC()</code> 或函数 <code>NeweyWest()</code>。</p>
+
+  <h3>3.4 线性假设检验（Wald 与 F）</h3>
+  <p><code>car</code> 包提供自动执行线性假设检验的函数。根据我们的设定，它可用常规或调整后的协方差矩阵做 F 检验或 Wald 检验。要检验假设，必须构造假设矩阵与右侧向量。例如，若模型有五个参数（含截距），我们想检验</p>
+  <p>H<sub>0</sub>：β<sub>0</sub> = 0，β<sub>3</sub> + β<sub>4</sub> = 1</p>
+  <p>则假设矩阵与右侧向量为</p>
+  <p>
+  [ 1 0 0 0 0<br>
+  &nbsp;&nbsp;0 0 1 1 0 ] β =
+  ( 0<br>
+  &nbsp;&nbsp;1 )
+  </p>
+  <p>可如下实现：</p>
+  <pre><code>&gt; unrestricted &lt;- lm(y~x1+x2+x3+x4)
+&gt; rhs &lt;- c(0,1)
+&gt; hm &lt;- rbind(c(1,0,0,0,0),c(0,0,1,1,0))
+&gt; linear.hypothesis(unrestricted,hm,rhs)</code></pre>
+  <p>注意：若 <code>unrestricted</code> 是 <code>lm</code> 对象，默认做 F 检验；若是 <code>glm</code> 对象，则做 Wald χ<sup>2</sup> 检验。检验类型可通过 <code>type</code> 参数修改。</p>
+  <p>此外，若想用异方差或自相关稳健标准误做检验，可指定 <code>white.adjust=TRUE</code> 以使用 White 标准误，或用 <code>vcov</code> 参数提供我们自己的协方差矩阵。例如，若希望在上面使用 Newey-West 校正的协方差矩阵，可指定</p>
+  <p style="font-size:0.9rem;"><sup>5</sup>即得到 White 标准误，或者说它们的平方。</p>
+</section>
+
+<!-- ========== PAGE 19 ========== -->
+<section class="page" id="p19">
+  <div class="page-label">第 19 页</div>
+  <pre><code>&gt; linear.hypothesis(unrestricted,hm,rhs,vcov=NeweyWest(unrestricted))</code></pre>
+  <p>关于 <code>NeweyWest()</code> 函数，见异方差稳健协方差矩阵一节。应记住：设定 <code>white.adjust=TRUE</code> 会用对 White 估计量的改进来校正异方差。要使用经典 White 估计量，可指定 <code>white.adjust="hc0"</code>。</p>
+
+  <h3>3.5 加权与广义最小二乘</h3>
+  <p>可通过向 <code>lm()</code> 传入含权重的向量来做加权最小二乘。</p>
+  <pre><code>&gt; result &lt;- lm(smokes ~ 0 + male + female ,data=smokerdata,weights=myweights)</code></pre>
+  <p>广义最小二乘可通过 <code>MASS</code> 库中的 <code>lm.gls()</code> 命令获得。它接受公式、加权矩阵，以及（可选的）从中取数据的数据框作为参数。</p>
+  <p><code>glm()</code> 命令提供大量其他高级线性回归方法的入口。详见帮助文件。</p>
+
+  <h3>3.6 含因子/分组的模型</h3>
+  <p>R 对定性因子有单独的数据类型。当回归中包含的变量类型为 <code>factor</code> 时，会自动创建所需的虚拟变量。例如，若想把个人电脑采用（<code>pc</code>）对雇员人数（<code>emple</code>）回归，并为每个州加入虚拟变量（其中 <code>state</code> 是两字母缩写向量），可直接跑回归：</p>
+  <pre><code>&gt; summary(lm(pc~emple+state))
+Call:
+lm(formula = pc ~ emple + state)
+Residuals:
+    Min      1Q  Median      3Q     Max
+-1.7543 -0.5505  0.3512  0.4272  0.5904
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  5.572e-01  6.769e-02   8.232  &lt;2e-16 ***
+emple        1.459e-04  1.083e-05  13.475  &lt;2e-16 ***
+stateAL     -4.774e-03  7.382e-02  -0.065   0.948
+stateAR      2.249e-02  8.004e-02   0.281   0.779
+stateAZ     -7.023e-02  7.580e-02  -0.926   0.354
+stateDE      1.521e-01  1.107e-01   1.375   0.169
+...
+stateFL     -4.573e-02  7.136e-02  -0.641   0.522
+stateWY      1.200e-01  1.041e-01   1.153   0.249
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Residual standard error: 0.4877 on 9948 degrees of freedom
+Multiple R-Squared: 0.02451, Adjusted R-squared: 0.01951
+F-statistic: 4.902 on 51 and 9948 DF,  p-value: &lt; 2.2e-16</code></pre>
+  <p>三个点表示部分系数因篇幅而省略。</p>
+  <p>要把数据（字符串或数值类型）转为因子，只需使用 <code>factor()</code> 命令。甚至可在回归内部使用。例如，若想做同样回归，但按指定地区的数值代码，可用命令</p>
+</section>
+
+<!-- ========== PAGE 20 ========== -->
+<section class="page" id="p20">
+  <div class="page-label">第 20 页</div>
+  <pre><code>&gt; myout &lt;- lm(pc~emple+factor(naics6))</code></pre>
+  <p>它把 <code>naics6</code> 转为因子、生成相应虚拟变量，并跑标准回归。</p>
+
+  <h3>4 特殊回归</h3>
+
+  <h3>4.1 固定/随机效应模型</h3>
+  <p><strong>警告：</strong>固定效应与随机效应模型的定义在各学科间并不统一。这里描述的是计量经济学家通常使用的固定效应与随机效应估计。“固定”与“随机”这些术语有历史根源，从计量角度看容易误导。</p>
+  <p>在经济学语境中，固定效应与随机效应估计量是处理截距截面变异的面板数据模型。令 i 表示截面指标（或数据分组所依据的指标），t 表示时间指标（或组内变化的指标），标准固定效应模型可写为</p>
+  <p>y<sub>it</sub> = α + u<sub>i</sub> + βX<sub>it</sub> + ε<sub>it</sub>.　　(2)</p>
+  <p>本质上，每个个体有不同的时不变截距（α + u<sub>i</sub>）。我们通常关心 β 而不关心各个 u<sub>i</sub>。随机效应模型有相同的均值方程，但额外施加个体特定效应与解释变量 X<sub>it</sub> 不相关的限制。即 E[u<sub>i</sub> X<sub>it</sub>] = 0。从计量上看，这是固定效应估计量的更受限版本（固定效应允许“效应”与外生变量任意相关）。不要让不幸的命名混淆这些模型之间的关系。</p>
+
+  <h4>4.1.1 固定效应</h4>
+  <p>做固定效应估计的一种简单方式——尤其在截面维不太大时——是为每个个体加入虚拟变量，也就是把截面指标做成因子。若 <code>index</code> 标识样本中的个体，则</p>
+  <pre><code>&gt; lm(y~factor(index)+x)</code></pre>
+  <p>会做固定效应估计，并报告 β 的正确标准误。不幸的是，当样本中个体很多且我们对他们的固定效应取值不感兴趣时，<code>lm()</code> 结果难以处理，估计大量 u<sub>i</sub> 系数也可能使问题在数值上难以处理。</p>
+  <p>估计固定效应模型更常见的方式是通过对每个变量做时间去均值（所谓组内估计量）来去掉固定效应。于是方程 (2) 变为</p>
+  <p>(y<sub>it</sub> − ȳ<sub>i</sub>) = α + β(X<sub>it</sub> − X̄<sub>i</sub>) + ζ<sub>it</sub>.　　(3)</p>
+  <p>大多数计量软件包（例如 Stata 的 <code>xtreg</code>）做固定效应估计时使用该方法。在 R 中，可手动对自变量与因变量做时间去均值。若 <code>d</code> 是含 <code>year</code>、<code>firm</code>、<code>profit</code> 与 <code>predictor</code> 的数据框，我们想对每个公司的利润与预测变量做时间去均值，可运行类似：</p>
+  <pre><code>&gt; g&lt;-d
+&gt; for (i in unique(d$firm)){
++   timemean&lt;-mean(d[d$firm==i,])
++   g$profit[d$firm==i]&lt;-d$profit[d$firm==i]-timemean["profit"]
++   g$predictor[d$firm==i]&lt;-d$predictor[d$firm==i]-timemean["predictor"]
++ }
+&gt; output&lt;-lm(profit~predictor,data=g)</code></pre>
+  <p>注意：该回归报告的标准误会向下偏误。<code>lm()</code> 报告的 σ̂<sup>2</sup> 用</p>
+  <p>σ̂<sup>2</sup> = SSR / (NT − K)</p>
+  <p>计算。</p>
+</section>
+
+<!-- ========== PAGE 21 ========== -->
+<section class="page" id="p21">
+  <div class="page-label">第 21 页</div>
+  <p>而该固定效应回归中真正的标准误为</p>
+  <p>σ̂<sup>2</sup> = SSR / [N(T − 1) − K]</p>
+  <p>对于小的 T，这可能是重要的校正。</p>
+  <p>另一种通常较不受欢迎的固定效应估计方式是使用一阶差分估计量</p>
+  <p>(y<sub>it</sub> − y<sub>i(t−1)</sub>) = α + β(X<sub>it</sub> − X<sub>i(t−1)</sub>) + ζ<sub>it</sub>.</p>
+  <p>可用与组内估计量类似的方式手工计算。</p>
+
+  <h4>4.1.2 随机效应</h4>
+  <p><code>nlme</code> 包包含做随机效应回归的函数（但不含固定效应——文档采用统计学对“固定效应”一词的解释），框架可为线性或非线性。假设我们有对 sic3 代码带随机效应的线性模型：</p>
+  <p>ldsal = (α + α<sub>i</sub>) + β lemp<sub>it</sub> + γ ldnpt<sub>it</sub> + ε<sub>it</sub></p>
+  <p>可用下式拟合该模型：</p>
+  <pre><code>&gt; lme(ldsal~lemp+ldnpt,random=~1|sic3)</code></pre>
+  <p>一般地，随机效应写在模型 <code>random</code> 参数中竖线之后。在波浪号与竖线之间放 <code>1</code> 表示随机效应是截距项。若还想对外生变量之一以及截距都有随机效应，可把该变量放在与 <code>1</code> 相同的位置。例如</p>
+  <pre><code>&gt; lme(ldsal~lemp+ldnpt,random=~1+lemp|sic3)</code></pre>
+  <p>对应于</p>
+  <p>ldsal = (α + α<sub>i</sub>) + (β + β<sub>i</sub>) lemp<sub>it</sub> + γ ldnpt<sub>it</sub> + ε<sub>it</sub></p>
+  <p>对于非线性随机效应模型，用 <code>nlme()</code> 代替 <code>lme()</code>。</p>
+
+  <h3>4.2 定性响应</h3>
+
+  <h4>4.2.1 Logit/Probit</h4>
+  <p>在 R 中做 logit 与 probit 回归有几种方式。最简单的方式可能是使用带 <code>family</code> 选项的 <code>glm()</code> 命令。</p>
+  <pre><code>&gt; h &lt;- glm(c~y, family=binomial(link="logit"))</code></pre>
+  <p>或把 <code>logit</code> 换成 <code>probit</code> 做 probit 回归。<code>glm()</code> 函数产生与 <code>lm()</code> 类似的对象，因此可用 <code>summary()</code> 命令分析。要提取对数似然统计量，使用 <code>logLik()</code> 命令。</p>
+  <pre><code>&gt; logLik(h)
+‘log Lik.’ -337.2659 (df=1)</code></pre>
+
+  <h4>4.2.2 多项 Logit</h4>
+  <p><code>nnet</code> 库中有名为 <code>multinom()</code> 的函数用于多项 logit 估计。使用时，只需把因变量转为因子向量（包含所有情形），并用类似普通回归的语法。若因子存为虚拟变量向量，可利用十进制数的性质为所有组合创建唯一因子。假设我的因子是 <code>pc</code>、<code>inetacc</code> 与 <code>iapp</code>，则</p>
+  <pre><code>&gt; g &lt;- pc*1 + inetacc*10 + iapp*100
+&gt; multinom(factor(g)~pc.subsidy+inet.subsidy+iapp.subsidy+emple+msamissing)</code></pre>
+  <p>即可得到使用所有因子组合的多项 logit。</p>
+  <p>多项 probit 模型的条件数通常很差。<code>MNP</code> 库中有使用马尔可夫链蒙特卡洛模拟的方法 <code>mnp()</code>。</p>
+</section>
+
+<!-- ========== PAGE 22 ========== -->
+<section class="page" id="p22">
+  <div class="page-label">第 22 页</div>
+
+  <h4>4.2.3 有序 Logit/Probit</h4>
+  <p><code>MASS</code> 库有函数 <code>polr()</code> 用于有序 logit 或 probit 回归。若 <code>Sat</code> 是有序因子向量，则</p>
+  <pre><code>&gt; house.plr &lt;- polr(Sat ~ Infl + Type + Cont, method="probit")</code></pre>
+
+  <h3>4.3 Tobit 与删失回归</h3>
+  <p>要估计部分数据被删失的模型，使用 <code>survival</code> 库。函数 <code>survreg()</code> 执行此类回归，其因变量为 <code>Surv</code> 对象。了解如何做这类回归的最佳方式是举例。假设要把 y 对 x 与 z 回归，但若干 y 观测在左侧被删失并设为零。</p>
+  <pre><code>result &lt;- survreg(Surv(y,y&gt;0,type='left') ~ x + z, dist='gaussian')</code></pre>
+  <p><code>Surv()</code> 的第二个参数指定每个观测是否被删失（一表示被观测到，零表示被删失）。第三个参数指示数据在哪一侧被删失。由于删失的是该分布的下尾，我们指定 <code>left</code>。传给 <code>survreg</code> 的 <code>dist</code> 选项对于得到经典 Tobit 模型是必要的。</p>
+
+  <h3>4.4 分位数回归</h3>
+  <p>普通最小二乘回归方法给出因变量在自变量条件下的期望的估计。因此拟合值是条件均值的估计。若我们想要的不是条件均值，而是条件中位数或其他分位数的期望估计，则使用 <code>quantreg</code> 包中的 <code>rq()</code> 命令。语法本质上与 <code>lm()</code> 相同，只是可指定参数 <code>tau</code>，即我们想要的分位数（介于 0 与 1 之间）。默认 <code>tau=.5</code>，对应于中位数回归——也就是最小绝对偏差回归的另一名称。</p>
+
+  <h3>4.5 稳健回归——M 估计量</h3>
+  <p>对某些数据集，异常值对最小二乘回归线的影响超过我们希望的程度。一种解决办法是用残差平方和（对应最小化 L<sub>2</sub> 范数）以外的目标函数做最小化。常见选择是绝对偏差之和（L<sub>1</sub>）以及 Huber 方法——它在某种程度上是 L<sub>1</sub> 与 L<sub>2</sub> 方法的混合。R 通过 <code>MASS</code> 库中的 <code>rlm()</code> 命令实现该稳健回归功能。语法与 <code>lm()</code> 命令相同，只是允许选择要最小化的目标函数。该选择由 <code>psi</code> 参数指定。可能已实现的选择有 <code>psi.huber</code>、<code>psi.hampel</code> 与 <code>psi.bisquare</code>。</p>
+  <p>要指定自定义 psi 函数，我们写一个函数：当 <code>deriv=0</code> 时返回 ψ(x)/x，当 <code>deriv=1</code> 时返回 ψ′(x)。然后可用 <code>psi</code> 参数把该函数传给 <code>rlm()</code>。</p>
+
+  <h3>4.6 非线性最小二乘</h3>
+  <p>有时经济模型并非线性。R 有能力求解可表示为</p>
+  <p>Y = F(X; β) + ε　　(4)</p>
+  <p>的广义最小二乘模型的系数。注意：误差项在函数形式中必须是可加的。若不是，应变换模型方程使其可加。R 中非线性最小二乘的函数是 <code>nls()</code>，语法类似 <code>lm()</code>。考虑下列非线性例子。</p>
+  <p>Y = ε / (1 + e<sup>β<sub>1</sub>X<sub>1</sub>+β<sub>2</sub>X<sub>2</sub></sup>)　　(5)</p>
+  <p>log(Y) = −log(1 + e<sup>β<sub>1</sub>X<sub>1</sub>+β<sub>2</sub>X<sub>2</sub></sup>) + log(ε)　　(6)</p>
+</section>
+
+<!-- ========== PAGE 23 ========== -->
+<section class="page" id="p23">
+  <div class="page-label">第 23 页</div>
+  <p>第二个方程是我们将用于估计的变换版本。<code>nls()</code> 以公式为第一个参数，还要求参数的起始估计。应指定完整公式，包括参数。R 查看起始值以决定将估计哪些参数。</p>
+  <pre><code>&gt; result &lt;- nls(log(Y)~-log(1+exp(a*X1+b*X2)),start=list(a=1,b=1),data=mydata)</code></pre>
+  <p>会把 a 与 b 的估计存在名为 <code>result</code> 的 <code>nls</code> 对象中。可用 <code>summary()</code> 命令查看估计。在最新版本的 R 中，<code>nls()</code> 命令属于基础包；在较旧版本中，可能需要加载 <code>nls</code> 库。</p>
+
+  <h3>4.7 单方程结构式的两阶段最小二乘</h3>
+  <p>对于单方程两阶段最小二乘，最容易的函数大概是 <code>sem</code> 库中的 <code>tsls()</code>。若想在控制婚姻状况的同时找出教育对工资的效应，但认为 <code>educ</code> 是内生的，可用 <code>motheduc</code> 与 <code>fatheduc</code> 作为工具变量，运行</p>
+  <pre><code>&gt; library(sem)
+&gt; outputof2sls &lt;- tsls(lwage~educ+married,~married+motheduc+fatheduc)</code></pre>
+  <p>第一个参数是我们想估计的结构方程；第二个是波浪号后跟所有工具变量以及结构方程中的外生变量——也就是 2SLS 估计量 β̃ = (X′Z(Z′Z)<sup>−1</sup>Z′X)<sup>−1</sup>X′Z(Z′Z)<sup>−1</sup>Z′y 中 Z 矩阵所需的一切。</p>
+  <p>所得输出可用 <code>summary()</code> 及其他 ols 分析函数分析。注意：由于该命令产生两阶段最小二乘对象，包括标准误在内的摘要统计量将是正确的。请记住：若用实际的两阶段方法来做，所得标准误会是假的。</p>
+
+  <h3>4.8 方程组</h3>
+  <p>处理方程组（包括工具变量、两阶段最小二乘、似不相关回归及其变体）的命令包含在 <code>systemfit</code> 库中。一般这些函数以回归模型列表为参数。注意：在 R 中，方程模型（必须包含波浪号）只是另一种数据类型。因此可用普通赋值运算符创建方程模型列表及对应的标签列表：</p>
+  <pre><code>&gt; demand &lt;- q ~ p + d
+&gt; supply &lt;- q ~ p + f + a
+&gt; system &lt;- list(demand,supply)
+&gt; labels &lt;- list("demand","supply")</code></pre>
+
+  <h4>4.8.1 似不相关回归</h4>
+  <p>一旦设置好系统与（可选的）标签，可用带 <code>SUR</code> 选项的 <code>systemfit()</code> 指定该系统描述似不相关回归。</p>
+  <pre><code>&gt; resultsur &lt;- systemfit("SUR",system,labels)</code></pre>
+
+  <h4>4.8.2 方程组的两阶段最小二乘</h4>
+  <p>也可使用工具变量，以便对上述系统做两阶段最小二乘。我们创建（无左侧的）模型对象以指定将使用的工具变量，并指定 <code>2SLS</code> 选项：</p>
+  <pre><code>&gt; inst &lt;- ~ d + f + a
+&gt; result2sls &lt;- systemfit("2SLS",system,labels,inst)</code></pre>
+  <p>还有三阶段最小二乘、加权两阶段最小二乘以及许多其他例程。</p>
+</section>
+
+<!-- ========== PAGE 24 ========== -->
+<section class="page" id="p24">
+  <div class="page-label">第 24 页</div>
+
+  <h3>5 时间序列回归</h3>
+  <p>R 有特殊数据类型 <code>ts</code>，用于时间序列回归。向量、数组与数据框可用 <code>ts()</code> 命令强制转换为此类型，以便用于时间序列函数。</p>
+  <pre><code>&gt; datats &lt;- ts(data)</code></pre>
+  <p>大多数与时间序列相关的函数会自动把数据强制为 <code>ts</code> 格式，因此该命令常常不必要。</p>
+
+  <h3>5.1 差分与滞后</h3>
+  <p>可用 <code>diff()</code> 运算符计算时间序列对象的差分；它接受可选参数，指定用几阶差分以及计算该差分时用多大滞后。例如，要取滞后为二的一阶差分，使得 w<sub>t</sub> = v<sub>t</sub> − v<sub>t−3</sub>，我们用</p>
+  <pre><code>&gt; w &lt;- diff(v,lag=2,difference=1)</code></pre>
+  <p>默认情况下，<code>diff()</code> 返回其参数的简单一阶差分。</p>
+  <p>生成滞后数据有两种一般方式。若想直接滞后数据（不必先转成时间序列对象），一种方式是用索引的减号运算符省略前几个观测。然后可去掉未滞后数据的最后几行以达到一致。命令</p>
+  <pre><code>&gt; lagy &lt;- y[-NROW(y)]
+&gt; ysmall &lt;- y[-1]</code></pre>
+  <p>产生相对 <code>ysmall</code> 一次滞后的 <code>y</code>。若在回归中尝试滞后的各种组合，这种方式可能很别扭，因为对每个滞后版变量，一致性要求我们有去掉前几个观测的对应版原始数据。</p>
+  <p>另一种滞后数据的方式是转换成时间序列对象并使用 <code>lag()</code> 函数。<strong>非常重要的是要记住：该函数并不真正改变数据，它改变的是时间序列对象中指示序列起点的属性。</strong>这给时间序列函数带来更大灵活性，但对 <code>lm()</code> 等不理解时间序列属性的一般函数可能造成混淆。注意 <code>lag()</code> 仅对时间序列对象有用地工作。例如，代码片段</p>
+  <pre><code>&gt; d &lt;- a - lag(a,-1)</code></pre>
+  <p>若 <code>a</code> 是普通向量，会创建名为 <code>d</code> 的零向量；但若 <code>a</code> 是 <code>ts</code> 对象，则返回该序列一阶差分的 <code>ts</code> 对象。对常规数据使用 <code>lag()</code> 不会发出警告，因此应小心。</p>
+  <p>为在回归中使用滞后数据，可用时间序列函数生成数据框，其中含数据的各种滞后，并在所需的前导与尾随位置放入 <code>NA</code>。为此使用 <code>ts.union()</code> 函数。假设 <code>X</code> 与 <code>Y</code> 是普通数据向量，我们想在回归中包含三次滞后的 <code>X</code>，则</p>
+  <pre><code>&gt; y &lt;- ts(Y)
+&gt; x &lt;- ts(X)
+&gt; x3 &lt;- lag(x,-3)
+&gt; d &lt;- ts.union(y,x,x3)</code></pre>
+  <p>把向量转为 <code>ts</code> 数据，并形成多元时间序列对象，列分别为 y<sub>t</sub>、x<sub>t</sub> 与 x<sub>t−3</sub>。再次记住：数据必须先转成时间序列格式再滞后，或用 union 运算符绑在一起，才能得到期望的偏移。<code>ts.union()</code> 函数会像 <code>data.frame()</code> 命令一样自动决定每列标题。我们也可在 union 内部做滞后并自行指定标题：</p>
+  <pre><code>&gt; y &lt;- ts(Y)
+&gt; x &lt;- ts(X)
+&gt; d &lt;- ts.union(y,x,x1=lag(xt,-1),x2=lag(xt,-2),x3=lag(xt,-3))</code></pre>
+</section>
+
+<!-- ========== PAGE 25 ========== -->
+<section class="page" id="p25">
+  <div class="page-label">第 25 页</div>
+  <p><strong>必须注意：滞后运算符的方向与人们可能预期的相反：正的滞后值导致超前（lead），负的滞后值导致滞后（lag）。</strong></p>
+  <p>当所得多元时间序列对象转换成数据框时（例如被 <code>ls()</code> 读取时），偏移会被保留。于是</p>
+  <pre><code>&gt; lm(y~x3,data=d)</code></pre>
+  <p>会把 y<sub>t</sub> 对 x<sub>t−3</sub> 回归。</p>
+  <p>还要注意：默认情况下，含缺失值（<code>NA</code>）的观测会被省略。这正是我们想要的。若默认设定不知何故被更改，应在 <code>lm()</code> 调用中包含参数 <code>na.action=na.omit</code>。为获得正确的省略行为，一般有必要把我们想用的全部数据（因变量与自变量）绑在同一个 union 中。</p>
+  <p>总结：要使用时间序列数据，把全部数据转成类型 <code>ts</code>，适当地滞后（采用正滞后为超前这一奇怪约定），并用 <code>ts.union()</code> 全部绑在一起。然后继续做回归及其他操作。</p>
+
+  <h3>5.2 滤波器</h3>
+
+  <h4>5.2.1 现成的 AR 与 MA 滤波器</h4>
+  <p>可用 <code>filter()</code> 命令让数据通过由滞后算子多项式构造的滤波器。它处理两类主要滤波器：移动平均或“卷积”滤波器，以及自回归或“递归”滤波器。卷积滤波器形如</p>
+  <p>y = (a<sub>0</sub> + a<sub>1</sub>L + … + a<sub>p</sub>L<sup>p</sup>) x</p>
+  <p>而递归滤波器求解</p>
+  <p>y = (a<sub>1</sub>L + a<sub>2</sub>L<sup>2</sup> + … + a<sub>p</sub>L<sup>p</sup>) y + x</p>
+  <p>在两种情形下，x 是滤波器输入，y 是输出。若 x 是新息向量，卷积滤波器生成移动平均序列，递归滤波器生成自回归序列。注意递归滤波器中没有 a<sub>0</sub> 项（理论上说不通）。递归滤波器等价地可看作求解</p>
+  <p>y = (1 − a<sub>1</sub>L − a<sub>2</sub>L<sup>2</sup> − … − a<sub>p</sub>L<sup>p</sup>)<sup>−1</sup> x</p>
+  <p>使用 <code>filter()</code> 命令时，我们如下提供 {a<sub>n</sub>} 向量：</p>
+  <pre><code>&gt; y &lt;- filter(x,c(1,.2,-.35,.1),method="convolution",sides=1)</code></pre>
+  <p>数据向量 <code>x</code> 可以是时间序列对象或普通数据向量，输出 <code>y</code> 将是 <code>ts</code> 对象。对卷积滤波器必须指定 <code>sides=1</code>，否则软件会尝试（在正负滞后上）居中滤波器，这通常不是计量经济学家想要的。递归滤波器忽略 <code>sides</code> 关键字。注意（除序列开头附近的数据损失外）我们可用递归滤波器从上面的 <code>y</code> 恢复数据：</p>
+  <pre><code>&gt; X&lt;-filter(y,c(-.2,.35,-.1),method="recursive")</code></pre>
+
+  <h4>5.2.2 手动滤波</h4>
+  <p>若 <code>filter()</code> 命令不适用于我们的应用——或者我们只是更喜欢自己动手——可手动生成滞后并计算结果。可用下列方式模仿上面的卷积滤波器：</p>
+  <pre><code>&gt; x &lt;- ts(x)
+&gt; y &lt;- x+.2*lag(x,-1)-.35*lag(x,-2)+.1*lag(x,-3)</code></pre>
+  <p>自回归滤波器则需要 <code>for</code> 循环来复现。记住：滞后滤波方法仅在 <code>x</code> 是 <code>ts</code> 对象时才会工作。</p>
+</section>
+
+<!-- ========== PAGE 26 ========== -->
+<section class="page" id="p26">
+  <div class="page-label">第 26 页</div>
+
+  <h4>5.2.3 Hodrick–Prescott 滤波</h4>
+  <p>可用几种方式对数据做 Hodrick–Prescott 滤波，都不要求数据必须是时间序列向量。首先，可用下面定义的函数手动滤波（为便于复制粘贴到 R，此处不含提示符）：</p>
+  <pre><code>hpfilter &lt;- function(x,lambda=1600){
+  eye &lt;- diag(length(x))
+  result &lt;- solve(eye+lambda*crossprod(diff(eye,lag=1,d=2)),x)
+  return(result)
+}</code></pre>
+  <p>其中 <code>lambda</code> 是标准调节参数，对宏观经济数据常取 1600。把序列传入该函数会返回平滑后的序列。</p>
+  <p>该滤波也是 <code>smooth.spline()</code> 在传入参数 <code>all.knots=TRUE</code> 时的一个特例。可惜 <code>smooth.spline()</code> 的调节参数 <code>spar</code> 与上面的 <code>lambda</code> 不同，我们尚未弄清如何在 <code>spar</code> 与 <code>lambda</code> 之间换算。若读者知道如何用 <code>smooth.spline()</code> 做 HP 滤波，请告知作者。</p>
+
+  <h4>5.2.4 卡尔曼滤波</h4>
+  <p>R 有多个函数可用卡尔曼滤波对状态空间模型做平滑、滤波并计算似然。最常被提到的是 <code>KalmanLike</code> 一族，但它们只适用于一元状态空间模型（即观测方程中只有一个变量）。因此，人们往往更偏爱 <code>dse1</code> 包中的方法（如 <code>SS.l()</code> 等）以及 <code>sspir</code> 包。因其更简单，这里介绍 <code>sspir</code> 包中的函数。</p>
+  <p>首先用函数生成状态空间模型对象，然后可对其做卡尔曼滤波，并可选择对滤波结果做平滑。生成状态空间对象的函数是 <code>SS()</code>。回顾状态空间模型可写成</p>
+  <p style="text-align:center;"><em>y<sub>t</sub></em> = <em>F</em>′<sub>t</sub><em>θ<sub>t</sub></em> + <em>v<sub>t</sub></em>， <em>θ<sub>t</sub></em> = <em>G<sub>t</sub>θ<sub>t−1</sub></em> + <em>w<sub>t</sub></em></p>
+  <p>其中</p>
+  <p style="text-align:center;"><em>v<sub>t</sub></em> ∼ <em>N</em>(0, <em>V<sub>t</sub></em>)， <em>w<sub>t</sub></em> ∼ <em>N</em>(0, <em>W<sub>t</sub></em>)。</p>
+  <p><em>θ<sub>t</sub></em> 是不可观测的状态向量，<em>y<sub>t</sub></em> 是观测数据向量。做卡尔曼滤波时，<em>θ</em> 的初值从 <em>N</em>(<em>m</em><sub>0</sub>, <em>C</em><sub>0</sub>) 抽取。</p>
+  <p>由于该一般模型可能随时间变化，系数矩阵必须以函数形式给出。一个要注意的细节是：输入 <code>Fmat</code> 是 <em>F<sub>t</sub></em> 的转置。写好生成 <em>F<sub>t</sub></em>、<em>G<sub>t</sub></em>、<em>V<sub>t</sub></em>、<em>W<sub>t</sub></em> 的函数，并生成输入变量 <em>φ</em>（供这些函数使用的参数向量）、<em>m</em><sub>0</sub> 与 <em>C</em><sub>0</sub> 后，运行 <code>SS()</code> 创建状态空间模型。然后对该模型对象运行 <code>kfilter()</code> 以滤波并得到对数似然——它返回带有估计参数的模型副本。若要做卡尔曼平滑，则把 <code>kfilter()</code> 输出的模型再交给 <code>smoother()</code>。</p>
+  <p><code>dse1</code> 包中的函数看起来更灵活，但初始化更复杂。</p>
+
+  <h3>5.3 ARIMA/ARFIMA</h3>
+  <p><code>ts</code> 库中的 <code>arima()</code> 命令可用自回归积分滑动平均模型拟合时间序列数据。</p>
+  <p style="text-align:center;">Δ<sup>d</sup><em>y<sub>t</sub></em> = <em>μ</em> + <em>γ</em><sub>1</sub>Δ<sup>d</sup><em>y<sub>t−1</sub></em> + ⋯ + <em>γ<sub>p</sub></em>Δ<sup>d</sup><em>y<sub>t−p</sub></em> + <em>ε<sub>t</sub></em> + <em>θ</em><sub>1</sub><em>ε<sub>t−1</sub></em> + ⋯ + <em>θ<sub>q</sub>ε<sub>t−q</sub></em> (7)</p>
+  <p>其中</p>
+  <p style="text-align:center;">Δ<em>y<sub>t</sub></em> = <em>y<sub>t</sub></em> − <em>y<sub>t−1</sub></em> (8)</p>
+</section>
+
+<!-- ========== PAGE 27 ========== -->
+<section class="page" id="p27">
+  <div class="page-label">第 27 页</div>
+
+  <p>参数 <em>p</em>、<em>d</em>、<em>q</em> 指定 ARIMA 模型的阶数。这些值以向量 <code>c(p,d,q)</code> 传给 <code>arima()</code>。注意：R 所用模型对 <em>θ</em> 项的符号不做假定，因此对应系数的符号可能与其他软件包（如 S+）不同。</p>
+  <pre><code>&gt; ar1 &lt;- arima(y,order=c(1,0,0))
+&gt; ma1 &lt;- arima(y,order=c(0,0,1))</code></pre>
+  <p>数据成员 <code>ar1</code> 与 <code>ma1</code> 分别包含用 AR(1) 与 MA(1) 拟合 <code>y</code> 得到的估计系数，以及对数似然统计量与估计标准误。</p>
+  <p>有时我们想估计高阶 ARIMA，但把前几个系数固定为 0（或其他值）。可用 <code>fixed</code> 参数做到这一点。它接受一个长度等于可估参数个数的向量。条目为 <code>NA</code> 表示希望估计对应参数。例如，要估计</p>
+  <p style="text-align:center;"><em>y<sub>t</sub></em> = <em>γ</em><sub>2</sub><em>y<sub>t−2</sub></em> + <em>θ</em><sub>1</sub><em>ε<sub>t−1</sub></em> + <em>ε<sub>t</sub></em> (9)</p>
+  <p>可用</p>
+  <pre><code>&gt; output &lt;- arima(y,order=c(2,0,1),fixed=c(0,NA,NA))</code></pre>
+  <p>有人报告：若使用 <code>fixed</code> 参数，还应传入 <code>transform.pars=FALSE</code>。</p>
+  <p>若只建简单自回归模型，也可用 <code>ts</code> 包中的 <code>ar()</code> 命令：它可接受模型阶数，或选择一个合理的默认阶数。</p>
+  <pre><code>&gt; ar3 &lt;- ar(y,order.max=3)</code></pre>
+  <p>例如拟合 AR(3) 模型。</p>
+  <p><code>fracdiff</code> 库中的 <code>fracdiff()</code> 对我们的数据拟合指定的 ARMA(<em>p</em>,<em>q</em>)，并寻找 ARFIMA(<em>p</em>,<em>d</em>,<em>q</em>) 中最优的分数阶 <em>d</em>。其语法与 <code>arima()</code> 略有不同。</p>
+  <pre><code>&gt; library(fracdiff)
+&gt; fracdiff(y,nar=2,nma=1)</code></pre>
+  <p>在 <em>p</em>=2、<em>q</em>=1 下寻找最优 <em>d</em>，然后估计所得 ARFIMA(<em>p</em>,<em>d</em>,<em>q</em>) 模型。</p>
+
+  <h3>5.4 ARCH/GARCH</h3>
+  <h4>5.4.1 基本 GARCH——<code>garch()</code></h4>
+  <p>R 可用广义自回归条件异方差模型 GARCH(<em>p</em>,<em>q</em>) 数值拟合数据，写为</p>
+  <p style="text-align:center;"><em>y<sub>t</sub></em> = <em>C</em> + <em>ε<sub>t</sub></em> (10)</p>
+  <p style="text-align:center;"><em>σ</em><sup>2</sup><sub>t</sub> = <em>α</em><sub>0</sub> + <em>δ</em><sub>1</sub><em>σ</em><sup>2</sup><sub>t−1</sub> + ⋯ + <em>δ<sub>p</sub>σ</em><sup>2</sup><sub>t−p</sub> + <em>α</em><sub>1</sub><em>ε</em><sup>2</sup><sub>t</sub> + ⋯ + <em>α<sub>q</sub>ε</em><sup>2</sup><sub>t−q</sub> (11)</p>
+  <p>令 <em>p</em> = 0 即得 ARCH(<em>q</em>) 模型。R 命令 <code>garch()</code> 来自 <code>tseries</code> 库。其语法为</p>
+  <pre><code>&gt; archoutput &lt;- garch(y,order=c(0,3))
+&gt; garchoutput &lt;- garch(y,order=c(2,3))</code></pre>
+  <p>从而 <code>archoutput</code> 是 ARCH(3) 的建模结果，<code>garchoutput</code> 是 GARCH(2,3) 的建模结果。注意：<code>order</code> 参数的第一个值是 <em>p</em>（delta 的个数），第二个值是 <em>q</em>（alpha 参数的个数）。所得系数估计会命名为 <code>a0</code>、<code>a1</code>、…（对应 alpha）以及 <code>b1</code>、<code>b2</code>、…（对应 delta）。条件标准差过程的估计值可通过</p>
+  <pre><code>fitted(garchoutput)</code></pre>
+  <p>获得。</p>
+</section>
+
+<!-- ========== PAGE 28 ========== -->
+<section class="page" id="p28">
+  <div class="page-label">第 28 页</div>
+
+  <h4>5.4.2 高级 GARCH——<code>garchFit()</code></h4>
+  <p>当然，我们可能想在均值方程 (10) 中加入外生变量，而 <code>garch()</code> 不允许。为此可使用 <code>fSeries</code> 包中更灵活的函数 <code>garchFit()</code>。</p>
+  <pre><code>&gt; garchFitoutput &lt;- garchFit(~arma(0,1)+garch(2,3),y)</code></pre>
+  <p>拟合与上面相同的模型，但均值方程现为 MA(1)。</p>
+  <p>该函数返回 S4 类对象，意味着要用 <code>@</code> 运算符访问内部数据：</p>
+  <pre><code>&gt; coef &lt;- garchFitoutput@fit$coef
+&gt; fitted &lt;- garchFitoutput@fit$series$h</code></pre>
+  <p>这里 <code>h</code> 给出的是估计的 <em>σ</em><sup>2</sup> 过程，而非 <em>σ</em>，因此它是上面 <code>garch()</code> 的“fitted”值的平方。撰写本文时，<code>garchFit()</code> 在估计参数时会打印大量输出。传入参数 <code>trace=FALSE</code> 可避免其中一部分。</p>
+
+  <h4>5.4.3 其他 GARCH——Ox G@RCH</h4>
+  <p><code>fSeries</code> 还提供对 Ox G@RCH<sup>6</sup> 软件部分函数的接口；该软件并不像 R 那样自由，不过撰写本文时对学术用途免费。据文档，该接口提供 EGARCH、GJR、APARCH、IGARCH、FIGARCH、FIEGARCH、FIAPARCH 与 HYGARCH 等模型的估计例程。</p>
+
+  <h3>5.5 相关图</h3>
+  <p>分析时间序列时，常见做法是绘制自相关与偏自相关函数，以尝试猜测数据的函数形式。要绘制自相关与偏自相关函数，分别使用 <code>ts</code> 库中的 <code>acf()</code> 与 <code>pacf()</code>。下面命令在同一图上、上下（而非重叠）绘制 ACF 与 PACF。关于在画布上排列多图，见 6.5 节。</p>
+  <pre><code>&gt; par(mfrow=c(2,1))
+&gt; acf(y)
+&gt; pacf(y)</code></pre>
+  <p>这些函数还返回 ACF 与 PACF 的数值以及其他一些输出。传入 <code>plot=F</code> 可抑制绘图。</p>
+  <p style="font-size:0.85rem;color:#555;"><sup>6</sup>Ox 与 G@RCH 由 Timberlake Consultants Ltd. 发行。可通过网站 <a href="http://www.timberlake.co.uk">http://www.timberlake.co.uk</a> 联系 Timberlake Consultants。</p>
+</section>
+
+<!-- ========== PAGE 29 ========== -->
+<section class="page" id="p29">
+  <div class="page-label">第 29 页</div>
+
+  <h3>5.6 预测值</h3>
+  <p><code>predict()</code> 命令以 <code>lm</code>、<code>glm</code>、<code>arima</code> 或其他回归对象及若干选项为输入，返回相应预测值。对时间序列回归（如 <code>arima()</code>），参数是向未来预测的期数。</p>
+  <pre><code>&gt; a &lt;- arima(y,order=c(1,1,2))
+&gt; predict(a,5)</code></pre>
+  <p>返回 <code>y</code> 之后五期的预测，以及相应的标准误估计。</p>
+
+  <h3>5.7 时间序列检验</h3>
+  <h4>5.7.1 自相关的 Durbin–Watson 检验</h4>
+  <p>可用 <code>car</code> 库中的 <code>durbin.watson()</code> 做自相关的 Durbin–Watson 检验。其参数为 <code>lm</code> 对象（即 <code>lm()</code> 命令的输出），返回自相关、DW 统计量与估计的 <em>p</em> 值。可用 <code>max.lag</code> 指定滞后期数。细节见帮助文件。</p>
+  <pre><code>&gt; library(car)
+&gt; results &lt;- lm(Y ~ x1 + x2)
+&gt; durbin.watson(results,max.lag=2)</code></pre>
+
+  <h4>5.7.2 自相关的 Box–Pierce 与 Breusch–Godfrey 检验</h4>
+  <p>要对残差（或其他数据集）做自相关检验，可用 <code>ts</code> 库中的 Box–Pierce 检验。</p>
+  <pre><code>&gt; library(ts)
+&gt; a &lt;- arima(y,order=c(1,1,0))
+&gt; Box.test(a$resid)
+	Box-Pierce test
+data:  a$resid
+X-squared = 18.5114, df = 1, p-value = 1.689e-05</code></pre>
+  <p>这会使我们怀疑模型可能设定不正确，因为我们明确拒绝了 Box–Pierce 原假设。若要用 Ljung–Box 检验，则加入参数 <code>type="Ljung-Box"</code>。</p>
+  <p>对合适的模型，该检验渐近等价于 Breusch–Godfrey 检验；后者在 <code>lmtest</code> 库中以 <code>bgtest()</code> 提供，参数是已拟合的 <code>lm</code> 对象而非数据向量。</p>
+
+  <h4>5.7.3 单位根的 Dickey–Fuller 检验</h4>
+  <p>增广 Dickey–Fuller 检验检查序列是否有单位根。默认原假设是序列有单位根。使用 <code>tseries</code> 库中的 <code>adf.test()</code>。</p>
+  <pre><code>&gt; library(tseries)
+&gt; adf.test(y)
+	Augmented Dickey-Fuller Test
+data:  y
+Dickey-Fuller = -2.0135, Lag order = 7, p-value = 0.5724
+alternative hypothesis: stationary</code></pre>
+</section>
+
+<!-- ========== PAGE 30 ========== -->
+<section class="page" id="p30">
+  <div class="page-label">第 30 页</div>
+
+  <h3>5.8 向量自回归（VAR）</h3>
+  <p>标准的 <code>ar()</code> 例程可完成向量自回归的估计部分。做这类回归时，只需把各向量绑成数据框，并把该数据框作为参数传给 <code>ar()</code>。注意 <code>ar()</code> 默认用 AIC 决定使用多少滞后，因此可能需要指定 <code>aic=FALSE</code> 和/或 <code>order.max</code> 参数。请记住：若 <code>aic</code> 为 <code>TRUE</code>（默认），函数会用 AIC 在最多 <code>order.max</code> 所指定滞后阶数内选择模型。</p>
+  <pre><code>&gt; y &lt;- ts.union(Y1,Y2,Y3)
+&gt; var6 &lt;- ar(y,aic=FALSE,order=6)</code></pre>
+  <p>可惜 <code>ar()</code> 方法没有内置预测、脉冲响应函数等功能。必要时读者可能要自己编写这些部分。</p>
+  <p>或者，<code>dse1</code> 库中的 <code>ARMA()</code> 函数能以很大一般性拟合多元时间序列回归，但相应的编程开销也很大。</p>
+  <p>CRAN 上还有名为 <code>VAR</code> 的向量自回归包，但我尚未使用过。</p>
+
+  <h2>6 绘图</h2>
+  <p>R 的一大强项是图形能力。它既提供高层绘图命令，也能编辑图中最细小的细节。</p>
+  <p><code>plot()</code> 命令打开新窗口，并绘制所给数据序列。默认情况下，单个向量按时间序列折线绘制。若给 <code>plot()</code> 两个向量，则用小圆点在 <em>x</em>–<em>y</em> 平面上绘制。可用 <code>type</code> 参数决定图形类型（散点、折线、直方图等）。也可向 <code>plot</code> 传入主标题以及 <em>x</em>、<em>y</em> 轴标签字符串。</p>
+  <pre><code>&gt; plot(x,y,type="l", main="X and Y example",ylab="y values",xlab="x values")</code></pre>
+  <p>例如在 <em>x</em>–<em>y</em> 平面画一条线。颜色、符号及许多其他选项都可传给 <code>plot()</code>。更详细信息见帮助系统中关于 <code>plot()</code> 与 <code>par()</code> 的条目。</p>
+  <p>绘图窗口打开后，若要在已有图形上再叠加一层，可用 <code>lines()</code> 或 <code>points()</code>，分别绘制折线与散点。适用于 <code>plot()</code> 的许多选项同样适用于 <code>lines()</code> 以及大量其他图形函数。</p>
+  <p>给定系数后，可用 <code>abline()</code> 画直线。这在二元回归后可视化回归线位置时往往很有用：</p>
+  <pre><code>&gt; results &lt;- lm(y ~ x)
+&gt; plot(x,y)
+&gt; abline(results$coef)</code></pre>
+  <p><code>abline()</code> 也可分别用参数 <code>v</code> 或 <code>h</code> 在特定值处画竖线或横线。</p>
+  <p>要画非线性确定性函数，如 <em>f</em>(<em>x</em>) = <em>x</em><sup>3</sup>，不必先生成一堆落在函数上的数据再连点。可用 <code>curve()</code> 直接绘制函数。若要在已创建的图上叠加该函数，可传入 <code>add=TRUE</code>。</p>
+</section>
+
+<!-- ========== PAGE 31 ========== -->
+<section class="page" id="p31">
+  <div class="page-label">第 31 页</div>
+
+  <pre><code>&gt; x &lt;- 1:10
+&gt; y &lt;- (x+rnorm(10))^3
+&gt; plot(x,y)
+&gt; curve(x^3,add=TRUE)</code></pre>
+
+  <h3>6.1 绘制经验分布</h3>
+  <p>我们通常把数据向量分箱并画成直方图来展示其分布。该功能由 <code>hist()</code> 提供。直方图往往因严重依赖箱宽选择而掩盖分布中的真实趋势。更可靠的一元数据可视化方式是核密度估计，它给出数据 PDF 的经验估计。<code>density()</code> 计算核估计，可用 <code>plot()</code> 绘制。</p>
+  <pre><code>&gt; d &lt;- density(y)
+&gt; plot(d,main="Kernel Density Estimate of Y")</code></pre>
+  <p>也可用默认发行版自带的 <code>stepfun</code> 库中的 <code>ecdf()</code> 绘制一组数据的经验 CDF，再用 <code>plot()</code> 画出估计的 CDF。</p>
+  <pre><code>&gt; library(stepfun)
+&gt; d &lt;- ecdf(y)
+&gt; plot(d,main="Empirical CDF of Y")</code></pre>
+
+  <h3>6.2 等高线图</h3>
+  <p><code>graphics</code> 包中的 <code>contour()</code> 接受函数值网格，并可选择两个指示网格 <em>x</em>、<em>y</em> 取值的向量，然后绘制等高线。可用类似方式的 <code>contourLines()</code> 把等高线加到另一幅图上。<code>lattice</code> 包提供 <code>levelplot()</code> 与 <code>contourplot()</code>，据我经验更灵活但更不易上手。等高线示例见附录 13.5。</p>
+
+  <h3>6.3 添加图例等</h3>
+  <p>绘图后我们常想添加注解或其他图形元素，这些最好手动定位。<code>text()</code>（见下）与 <code>legend()</code> 等函数以图上坐标作为前两个参数，以确定结果对象的放置位置。要手动确定图上某点位置，使用 <code>locator()</code> 函数。在图上右键点击一处或多处的位置，会在随后左键点击后由该函数返回。这些坐标随后可用于放置文本、图例或其他附加内容。</p>
+</section>
+
+<!-- ========== PAGE 32 ========== -->
+<section class="page" id="p32">
+  <div class="page-label">第 32 页</div>
+
+  <p>一个带有预测曲线及其标准误线的时间序列示例如下：</p>
+  <pre><code>&gt; plot(a.true,type="l",lty=1,ylim=c(11.6,12.5),main="Predicted vs True",xlab="",ylab="")
+&gt; lines(a.predict$pred,lty=2,type="l")
+&gt; lines(a.predict$pred+a.predict$se,lty=3,type="l")
+&gt; lines(a.predict$pred-a.predict$se,lty=3,type="l")
+&gt; legend(145,11.95,c("true values","predicted"),lty=c(1,2))</code></pre>
+
+  <h3>6.4 添加箭头、文本与标记</h3>
+  <p>绘制某类图形后，可用 <code>graphics</code> 库中的 <code>arrows()</code> 添加箭头。它接受“起点”与“终点”坐标。可用 <code>text()</code> 与 <code>points()</code> 在图上任意位置添加文本与标记。对 <code>points()</code>，标记类型由 <code>pch</code> 参数决定。该参数可取许多值，包括字母。可能取值的速查图是运行下面命令时最后输出的内容：</p>
+  <pre><code>&gt; example(points)</code></pre>
+  <p>使用其中部分功能的示例图见附录 13.5。</p>
+
+  <h3>6.5 多图</h3>
+  <p>我们可以分割画布以容纳多幅图。有多种函数可用于此，包括 <code>split.screen()</code>、<code>layout()</code> 与 <code>par()</code>。最简单也最重要的可能是 <code>par()</code>，因此这里只考察它。<code>par()</code> 设置关于图形的许多默认值，包括边距、刻度与布局。通过修改 <code>mfrow</code> 属性，可在同一画布上排列多图。它是一个向量：第一个元素指定将绘制的图的行数，第二个指定列数。有时绘制多图时默认间距不美观，此时可用 <code>mar</code> 属性修改（每幅图的）默认边距。这是一个四元向量，形式为（下，左，上，右）。默认设置为 <code>c(5, 4, 4, 2) + 0.1</code>。对上下排列的图，我们可能倾向于减小上下边距。若要绘制一条时间序列，并在其下方放置经季节调整的版本，可用</p>
+  <pre><code>&gt; op &lt;- par(no.readonly=TRUE)
+&gt; par(mfrow=c(2,1),mar=c(3,4,2,2)+.1)
+&gt; plot(d[,1],main="Seasonally Adjusted",ylab=NULL)
+&gt; plot(d[,2],main="Unadjusted", ylab=NULL)
+&gt; par(op)</code></pre>
+  <p>注意：绘图前我们把当前设置保存在 <code>op</code> 中，以便绘图后恢复；并且这样做时必须设置 <code>no.readonly</code> 属性。</p>
+</section>
+
+<!-- ========== PAGE 33 ========== -->
+<section class="page" id="p33">
+  <div class="page-label">第 33 页</div>
+
+  <h3>6.6 保存图形——png、jpg、eps、pdf、xfig</h3>
+  <p>要将图形保存到文件，可通过 <code>png()</code>、<code>jpg()</code> 或 <code>postscript()</code> 等命令更改图形设备，然后绘制所需内容，再用 <code>dev.off()</code> 关闭该特殊图形设备。例如，</p>
+  <pre><code>&gt; png("myplot.png")
+&gt; plot(x,y,main="A Graph Worth Saving")
+&gt; dev.off()</code></pre>
+  <p>创建 <code>x</code> 与 <code>y</code> 图的 png 文件。对 postscript 文件，若打算把图形纳入其他文件（如 LATEX 文档），可修改控制纸张尺寸与方向的默认 postscript 设置。注意：使用特殊纸张尺寸时（以及其他多数情况下为获得最佳效果），必须指定宽度与高度。实际上用 LATEX 时我们常显式缩放图像，因此尺寸调整可能不那么重要。</p>
+  <pre><code>&gt; postscript("myplot.eps",paper="special",width=4,height=4,horizontal=FALSE)
+&gt; plot(x,y,main="A Graph Worth Including in LaTeX")
+&gt; dev.off()</code></pre>
+  <p>另一点要注意：默认纸张尺寸是 a4（欧洲标准）。对 8.5×11 纸张，使用 <code>paper="letter"</code>。把生成的 postscript 再转为 pdf 时，纸张规格不正确是常见问题。</p>
+  <p>还有 <code>pdf()</code> 命令，用法与 postscript 相同，只是默认纸张为 special，高度与宽度为 6 英寸。一个含少许边距余量的常见 <code>pdf()</code> 例子是</p>
+  <pre><code>&gt; pdf("myplot.pdf",paper="letter",width=8,height=10.5)
+&gt; par(mfrow=c(2,1))
+&gt; plot(x,y,main="First Graph (on top)")
+&gt; plot(x,z,main="Second Graph (on bottom)")
+&gt; dev.off()</code></pre>
+  <p>另请注意：<code>par()</code> 在设备命令 <code>pdf()</code> 之后使用。</p>
+  <p>最后，许多科学示意图用自由软件 xfig 编写。R 能导出为 xfig 格式，从而可完全灵活地增改图形。若要用 R 做通用示意图（如无差异曲线），应从图中去掉轴刻度数字及其他多余标记。</p>
+  <pre><code>&gt; xfig("myoutput.fig", horizontal=F)
+&gt; plot(x,(x-.3)^2,type="l",xlab="",ylab="",xaxt="n",yaxt="n")
+&gt; dev.off()</code></pre>
+  <p><code>xaxt</code> 与 <code>yaxt</code> 参数从坐标轴上移除数字与刻度线。</p>
+
+  <h3>6.7 在图中加入希腊字母与数学符号</h3>
+  <p>R 可用 <code>substitute()</code> 为图形排版若干数学表达式。下面用一例说明（顺便说，该例完全没有经济含义，不必试图理解该函数）。</p>
+</section>
+
+<!-- ========== PAGE 34 ========== -->
+<section class="page" id="p34">
+  <div class="page-label">第 34 页</div>
+
+  <pre><code>&gt; plot(x,y,main=substitute(y==Psi*z-sum(beta^gamma)),type="l")
+&gt; text(3,40,substitute(Delta[K]==1))
+&gt; text(0.6,20,substitute(Delta[K]==epsilon))</code></pre>
+  <p>把希腊字母符号的首字母大写，会得到该符号的“大写”形式。注意：要在表达式中得到等号，必须像上面那样使用双等号。方括号表示下标。我们也可选择向 <code>substitute()</code> 传入变量，以便在公式中包含其取值。例如</p>
+  <pre><code>&gt; for (g in seq(.1,1,.1)){
++   plot(f(g),main=substitute(gamma==x,list(x=g)))
+&gt; }</code></pre>
+  <p>会生成十幅图，每幅图的标题反映传给 <code>f()</code> 的 <em>γ</em> 值。生成数学表达式的规则可通过 <code>plotmath</code> 的帮助获得——它是 R 图中使用的数学排版引擎。要混合文本与符号，在 <code>substitute()</code> 内使用 <code>paste()</code>：</p>
+  <pre><code>plot(density(tstats),main=substitute(paste("t-stat of ",beta[0])))</code></pre>
+
+  <h3>6.8 其他图形包</h3>
+  <p>到目前为止我讨论的是 R 的基础绘图包。与许多其他统计软件的绘图能力相比，它已经相当复杂且有用。但它并非包罗万象；R 中还有其他可能有用的图形库，包括 <code>grid</code>、<code>lattice</code> 与 <code>ggplot2</code>。</p>
+
+  <h2>7 统计</h2>
+  <p>R 具有广泛的统计功能。函数 <code>mean()</code>、<code>sd()</code>、<code>min()</code>、<code>max()</code> 与 <code>var()</code> 对数据的作用正如我们预期<sup>7</sup>。若数据是矩阵，且希望求每行或每列的均值或和，最快最好的方式是使用 <code>rowMeans()</code>、<code>colMeans()</code>、<code>rowSums()</code>、<code>colSums()</code> 之一。</p>
+
+  <h3>7.1 常用统计分布</h3>
+  <p>R 也能生成并分析来自标准分布的随机变量实现。生成随机实现的命令以字母 <code>r</code> 开头，第一个参数是要生成的观测数；返回某观测处 pdf 值的命令以 <code>d</code> 开头；返回某观测处 cdf 值的命令以 <code>p</code> 开头；返回对应于某 cdf 值的数的命令以 <code>q</code> 开头。注意：<code>p</code> 与 <code>q</code> 函数互为逆函数。</p>
+  <p style="font-size:0.85rem;color:#555;"><sup>7</sup>注意：函数 <code>pmax()</code> 与 <code>pmin()</code> 类似 max 与 min，但对向量或矩阵按元素运算。</p>
+</section>
+
+<!-- ========== PAGE 35 ========== -->
+<section class="page" id="p35">
+  <div class="page-label">第 35 页</div>
+
+  <table class="pkg-table">
+    <thead><tr><th>分布</th><th>R 名称</th><th>可能参数</th></tr></thead>
+    <tbody>
+      <tr><td>beta</td><td><code>beta</code></td><td><code>shape1</code>, <code>shape2</code>, <code>ncp</code></td></tr>
+      <tr><td>binomial</td><td><code>binom</code></td><td><code>size</code>, <code>prob</code></td></tr>
+      <tr><td>Cauchy</td><td><code>cauchy</code></td><td><code>location</code>, <code>scale</code></td></tr>
+      <tr><td>chi-squared</td><td><code>chisq</code></td><td><code>df</code>, <code>ncp</code></td></tr>
+      <tr><td>exponential</td><td><code>exp</code></td><td><code>rate</code></td></tr>
+      <tr><td>F</td><td><code>f</code></td><td><code>df1</code>, <code>df2</code>, <code>ncp</code></td></tr>
+      <tr><td>gamma</td><td><code>gamma</code></td><td><code>shape</code>, <code>scale</code></td></tr>
+      <tr><td>geometric</td><td><code>geom</code></td><td><code>prob</code></td></tr>
+      <tr><td>hypergeometric</td><td><code>hyper</code></td><td><code>m</code>, <code>n</code>, <code>k</code></td></tr>
+      <tr><td>log-normal</td><td><code>lnorm</code></td><td><code>meanlog</code>, <code>sdlog</code></td></tr>
+      <tr><td>logistic</td><td><code>logis</code></td><td><code>location</code>, <code>scale</code></td></tr>
+      <tr><td>negative binomial</td><td><code>nbinom</code></td><td><code>size</code>, <code>prob</code></td></tr>
+      <tr><td>normal</td><td><code>norm</code></td><td><code>mean</code>, <code>sd</code></td></tr>
+      <tr><td>Poisson</td><td><code>pois</code></td><td><code>lambda</code></td></tr>
+      <tr><td>Student’s t</td><td><code>t</code></td><td><code>df</code>, <code>ncp</code></td></tr>
+      <tr><td>uniform</td><td><code>unif</code></td><td><code>min</code>, <code>max</code></td></tr>
+      <tr><td>Weibull</td><td><code>weibull</code></td><td><code>shape</code>, <code>scale</code></td></tr>
+      <tr><td>Wilcoxon</td><td><code>wilcox</code></td><td><code>m</code>, <code>n</code></td></tr>
+    </tbody>
+  </table>
+  <pre><code>&gt; rnorm(1,mean=2,sd=3)
+[1] 2.418665
+&gt; pnorm(2.418665,mean=2,sd=3)
+[1] 0.5554942
+&gt; dnorm(2.418665,mean=2,sd=3)
+[1] 0.1316921
+&gt; qnorm(.5554942,mean=2,sd=3)
+[1] 2.418665</code></pre>
+  <p>这些函数从 <em>N</em>(2, 9) 分布生成一个随机数，计算其 cdf 与 pdf 值，再验证 cdf 值对应于原观测。若未指定均值与标准差，R 会假定标准正态。</p>
+  <table class="pkg-table">
+    <thead><tr><th>命令</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr><td><code>rX()</code></td><td>从分布 X 生成随机向量</td></tr>
+      <tr><td><code>dX()</code></td><td>返回分布 X 的 PDF 值</td></tr>
+      <tr><td><code>pX()</code></td><td>返回分布 X 的 CDF 值</td></tr>
+      <tr><td><code>qX()</code></td><td>返回 CDF 达到输入值 [0,1] 时对应的数</td></tr>
+    </tbody>
+  </table>
+  <p>注意：可用下列标准分布名称之一替换 <code>norm</code>。</p>
+  <p><code>mvtnorm</code> 包提供多元正态与 <em>t</em> 分布，名称分别为 <code>mvnorm</code> 与 <code>mvt</code>。其他分布见于其他包。例如，<code>invgamma</code> 可在 <code>MCMCpack</code> 中获得。</p>
+
+  <h3>7.2 P 值</h3>
+  <p>举例：要用 <em>F</em>(4, 43) 分布计算 3.6 的 <em>p</em> 值，可使用命令</p>
+  <pre><code>&gt; 1-pf(3.6,4,43)
+[1] 0.01284459</code></pre>
+  <p>从而发现在 1% 水平下无法拒绝，但在 5% 水平下可以拒绝。请记住：若 <em>p</em> 值小于 alpha，我们就能拒绝。另外请回忆：若做双尾检验，<em>p</em> 值应乘以 2。</p>
+</section>
+
+<!-- ========== PAGE 36 ========== -->
+<section class="page" id="p36">
+  <div class="page-label">第 36 页</div>
+
+  <p>例如，自由度为 21、统计量为 2.8 的 <em>t</em> 统计量，单尾与双尾检验分别是</p>
+  <pre><code>&gt; 1-pt(2.8,21)
+[1] 0.005364828
+&gt; 2*(1-pt(2.8,21))
+[1] 0.01072966</code></pre>
+  <p>从而若是单尾检验，我们会在 10% 水平拒绝“不显著”的原假设（记住：<em>p</em> 值越小，越支持拒绝）；但在不区分符号的情形下则无法拒绝。</p>
+
+  <h3>7.3 从数据中抽样</h3>
+  <p>R 提供了从数据中抽样的便捷快速接口（例如用于自助法）。因为它调用已编译函数，往往比手写抽样器快得多。该函数是 <code>sample()</code>。第一个参数是抽样来源数据，或一个整数——若给整数，则从 1 到该数的整数向量中抽样。第二个参数是要得到的样本量。参数 <code>replace</code> 指示有放回还是无放回抽样。最后，可选择传入抽样概率向量。</p>
+
+  <h2>8 R 中的数学</h2>
+
+  <h3>8.1 矩阵运算</h3>
+  <h4>8.1.1 矩阵代数与求逆</h4>
+  <p>多数 R 命令适用于多种数据类型。多数标准数学函数与运算符（包括乘法、除法与乘方）对多维对象的每个分量运算。因此若 <code>A</code> 与 <code>B</code> 是矩阵，运算 <code>A*B</code> 是对应分量相乘。要做矩阵乘法或内积，使用 <code>%*%</code> 运算符。注意：在矩阵–向量乘法中，R 会自动把向量当作行向量或列向量，以使其可乘。</p>
+  <p>矩阵求逆通过 <code>solve()</code> 函数获得。（注意：若 <code>solve()</code> 传入一个矩阵和一个向量，它求解相应的线性问题。）<code>t()</code> 函数转置其参数。因此</p>
+  <p style="text-align:center;"><em>β</em> = (<em>X</em>′<em>X</em>)<sup>−1</sup><em>X</em>′<em>Y</em> (12)</p>
+  <p>对应于命令</p>
+  <pre><code>&gt; beta &lt;- solve(t(X)%*%X)%*%t(X)%*%Y</code></pre>
+  <p>或更高效地</p>
+  <pre><code>&gt; beta &lt;- solve(t(X)%*%X,t(X)%*%Y)</code></pre>
+  <p>也支持 Kronecker 积，由 <code>%x%</code> 运算符指定。</p>
+  <pre><code>&gt; bigG &lt;- g%x%h</code></pre>
+  <p>计算 <code>g</code> 与 <code>h</code> 的 Kronecker 积。也支持外积 <code>%o%</code>。作用于纯向量时（我们记得它们只有一维，因而既非行也非列），两种矩阵积会依位置对参数是行向量还是列向量做出不同假定。例如</p>
+  <pre><code>&gt; h&lt;-c(1,2,3)
+&gt; h%*%h
+     [,1]
+[1,]   14
+&gt; h%o%h</code></pre>
+</section>
+
+<!-- ========== PAGE 37 ========== -->
+<section class="page" id="p37">
+  <div class="page-label">第 37 页</div>
+
+  <pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    2    4    6
+[3,]    3    6    9
+&gt; t(h)%*%h
+     [,1]
+[1,]   14
+&gt; h%*%t(h)
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    2    4    6
+[3,]    3    6    9</code></pre>
+  <p>注意：<code>t(h)%o%h</code> 会得到 1×3×3 数组，因为 <code>t()</code> 把 <code>h</code> 变成行向量，而 <code>%o%</code> 又把第二个 <code>h</code> 变成行向量。严格来说这些参数不可乘。这种组合最好避免。</p>
+  <p>方阵的迹由函数 <code>tr()</code> 计算，行列式由 <code>det()</code> 计算。<code>Matrix</code> 包提供各种矩阵范数（<code>norm()</code>）、稀疏与对称矩阵支持，以及其他线性代数类功能。应记住：<code>Matrix</code> 包提供自己的类 <code>Matrix</code>，与标准 R 类型 <code>matrix</code> 不同。要使用 <code>Matrix</code> 包中的函数，须用 <code>Matrix()</code> 转换。</p>
+
+  <h4>8.1.2 分解</h4>
+  <p>R 可计算标准矩阵分解。对称正定矩阵的 Cholesky 分解通过 <code>chol()</code> 获得。应注意 <code>chol()</code> 不检查参数是否对称，因此用户须小心。</p>
+  <p>也可用 <code>eigen()</code> 提取对称矩阵的特征值分解。该例程默认检查输入矩阵是否对称，但最好用参数 <code>symmetric</code> 明确说明矩阵是否由构造保证对称。</p>
+  <pre><code>&gt; J &lt;- cbind(c(20,3),c(3,18))
+&gt; j &lt;- eigen(J,symmetric=T)
+&gt; j$vec%*%diag(j$val)%*%t(j$vec)
+     [,1] [,2]
+[1,]   20    3
+[2,]    3   18</code></pre>
+  <p>若需要更一般的奇异值分解，则改用 <code>svd()</code>。对 QR 分解，使用 <code>qr()</code>。<code>Matrix</code> 包提供 <code>lu()</code> 与 <code>Schur()</code> 分解——只要记住使用前把矩阵转为类型 <code>Matrix</code>（而非 <code>matrix</code>）。</p>
+
+  <h3>8.2 数值优化</h3>
+  <h4>8.2.1 无约束最小化</h4>
+  <p>R 可用 <code>nlm()</code> 或 <code>optim()</code> 数值最小化任意函数。我更偏爱后者，因为它让用户选择优化方法（BFGS、共轭梯度、模拟退火等），但二者工作方式类似。为简单起见，这里介绍 <code>nlm()</code>。</p>
+  <p><code>nlm()</code> 接受一个函数以及一个用于求值的起始向量。用户定义函数的第一个参数应是 R 将对其最小化的参数；函数的其他参数（常数）应在 <code>nlm()</code> 调用中按名称指定。</p>
+  <pre><code>&gt; g &lt;- function(x,A,B){
++   out &lt;- sin(x[1])-sin(x[2]-A)+x[3]^2+B
++   out
++ }
+&gt; results &lt;- nlm(g,c(1,2,3),A=4,B=2)
+&gt; results$min
+[1] 6.497025e-13
+&gt; results$est
+[1] -1.570797e+00 -7.123895e-01 -4.990333e-07</code></pre>
+</section>
+
+<!-- ========== PAGE 38 ========== -->
+<section class="page" id="p38">
+  <div class="page-label">第 38 页</div>
+
+  <p>这里 <code>nlm()</code> 使用数值近似梯度的矩阵割线法；但若函数返回值含有名为 <code>gradient</code> 的属性，它将使用拟牛顿法。与上面相应的基于梯度的优化为</p>
+  <pre><code>&gt; g &lt;- function(x,A,B){
++   out &lt;- sin(x[1])-sin(x[2]-A)+x[3]^2+B
++   grad &lt;- function(x,A){
++     c(cos(x[1]),-cos(x[2]-A),2*x[3])
++   }
++   attr(out,"gradient") &lt;- grad(x,A)
++   return(out)
++ }
+&gt; results &lt;- nlm(g,c(1,2,3),A=4,B=2)</code></pre>
+  <p>若要最大化函数，应将函数乘以 −1 再最小化。若使用 <code>optim()</code>，可改为传入参数 <code>control=list(fnscale=-1)</code>，它表示目标函数与梯度的乘数。也可用来放大近乎平坦的函数以避免数值不精确。</p>
+  <p>其他可能感兴趣的优化函数包括：一维最小化的 <code>optimize()</code>、求根的 <code>uniroot()</code>，以及计算数值导数的 <code>deriv()</code>。</p>
+
+  <h4>8.2.2 带线性约束的最小化</h4>
+  <p>受线性不等式约束的函数最小化由 <code>constrOptim()</code> 提供。约束集必须能写成</p>
+  <p style="text-align:center;"><em>U</em>′<sub><em>i</em></sub><em>θ</em> − <em>C<sub>i</sub></em> ≥ 0</p>
+  <p>其中 <em>U<sub>i</sub></em> 与 <em>C<sub>i</sub></em> 是已知常向量，<em>θ</em> 是我们优化的参数向量。例如，要解</p>
+  <p style="text-align:center;"><em>θ̂</em> = arg max<sub><em>θ</em> : <em>θ</em>′<em>m<sub>i</sub></em> ≤ 1</sub> <em>f</em>(<em>θ</em>)</p>
+  <p>我们会使用</p>
+  <pre><code>&gt; thetahat&lt;-constrOptim(c(0,0,0,0,0),-f,NULL,ui=-m,ci=-1)$par</code></pre>
+  <p>第一个参数是起始值（<em>θ</em> 有五个参数）；函数乘以 −1 因为我们在最大化。下一个参数应是给出 <em>f</em> 梯度的函数。若没有这样的函数，必须插入 <code>NULL</code>，以便使用非梯度优化方法。</p>
+
+  <h3>8.3 数值积分</h3>
+  <p>可用 <code>stats</code> 包中的 <code>integrate()</code> 对已知函数做一维积分。例如，若要找后验密度函数的积分常数，可定义函数再积分：</p>
+  <pre><code>&gt; postdensity &lt;- function(x){
++   exp(-1/2*((.12-x)^2+(.07-x)^2+(.08-x)^2))
++ }
+&gt; const &lt;- 1/integrate(postdensity,-Inf,Inf)$value</code></pre>
+  <p>我们注意到 <code>integrate()</code> 还返回误差界等额外信息，因此用 <code>$value</code> 提取数值。此外，除函数名外，<code>integrate()</code> 还接受积分限——如此例所示，积分限可以是无穷。对多元积分，则改用 <code>adapt</code> 库中的 <code>adapt()</code>，它不允许无穷边界。</p>
+</section>
+
+<!-- ========== PAGE 39 ========== -->
+<section class="page" id="p39">
+  <div class="page-label">第 39 页</div>
+
+  <h2>9 编程</h2>
+
+  <h3>9.1 编写函数</h3>
+  <p>在 R 中，函数可像其他任何对象一样对待。用赋值运算符与 <code>function()</code> 创建；后者传入参数列表（用等号表示默认参数；其余参数在运行时必需）。作用于参数的代码跟在后面；若超过一行则用花括号包围。</p>
+  <p>若在函数内求值表达式或变量，它不会回显到屏幕。但若它是函数内的最后一次求值，它将充当返回值。这意味着下面两个函数等价：</p>
+  <pre><code>&gt; g &lt;- function(x,Alpha=1,B=0) sin(x[1])-sin(x[2]-Alpha)+x[3]^2+B
+&gt; f &lt;- function(x,Alpha=1,B=0){
++   out &lt;- sin(x[1])-sin(x[2]-Alpha)+x[3]^2+B
++   return(out)
++ }</code></pre>
+  <p>注意：R 把提示符改为 “+”，提醒我们仍在括号内。</p>
+  <p>因为 R 不区分参数列表中变量是何种数据对象，编写函数时应小心。若 <code>x</code> 是向量，上述函数会返回同维向量。另外，若参数名较长，只要缩写唯一即可缩写。因此下面两条语句等价：</p>
+  <pre><code>&gt; f(c(2,4,1),Al=3)
+&gt; f(c(2,4,1),Alpha=3)</code></pre>
+  <p>函数参数按值传递，因此在函数内修改它们不会改变函数外的值。函数内定义的变量在函数外也不可用。若在函数内引用某变量，先检查函数作用域，再检查上一层作用域，等等。换言之，函数外的变量对函数内代码可读，但对函数外已定义变量所做的修改会在函数终止时丢失。例如，</p>
+  <pre><code>&gt; a&lt;-c(1,2)
+&gt; k&lt;-function(){
++   cat("Before: ",a,"\n")
++   a&lt;-c(a,3)
++   cat("After: ",a,"\n")
++ }
+&gt; k()
+Before:  1 2
+After:  1 2 3
+&gt; a
+[1] 1 2</code></pre>
+  <p>若函数希望写入其上一层作用域中定义的变量，可使用“超级赋值”运算符 <code>&lt;&lt;-</code>。程序员在使用该运算符前应再三考虑程序结构。对它的需求很容易来自不良编程习惯。</p>
+
+  <h3>9.2 循环</h3>
+  <p>循环用 <code>for</code> 命令执行。其语法如下：</p>
+  <pre><code>&gt; for (i in 1:20){
++   cat(i)
+&gt; }</code></pre>
+  <p>其中 <code>cat()</code> 可换成我们希望重复的代码块。除 <code>1:20</code> 外，也可使用值的向量或矩阵。索引变量将取向量或矩阵中的每个值，并运行花括号中的代码。</p>
+</section>
+
+<!-- ========== PAGE 40 ========== -->
+<section class="page" id="p40">
+  <div class="page-label">第 40 页</div>
+
+  <p>若只想让循环一直运行直到有事使其停止，可用 <code>repeat</code> 循环与 <code>break</code>：</p>
+  <pre><code>&gt; repeat {
++   g &lt;- rnorm(1)
++   if (g &gt; 2.0) break
++   cat(g);cat("\n")
+&gt; }</code></pre>
+  <p>注意第二个 <code>cat</code> 发出换行符，使输出不会挤在一行。当我们在一行放多个命令时，分号用来让 R 知道命令结束位置。例如，上面等价于</p>
+  <pre><code>&gt; repeat {g &lt;- rnorm(1);if (g&gt;2.0) break;cat(g);cat("\n");}</code></pre>
+  <p>除 <code>break</code> 关键字外，R 还提供 <code>next</code> 关键字处理循环。它终止当前这次 <code>for</code> 或 <code>repeat</code> 迭代，并进入下一次迭代的开头（有其他语言经验的程序员有时会以为该关键字是 <code>continue</code>，但并非如此）。</p>
+
+  <h3>9.3 避免循环</h3>
+  <h4>9.3.1 对数组（或其截面）应用函数</h4>
+  <p>为帮助程序员避免编写与执行循环带来的迟缓，R 有命令可对数组的每一行或每一列调用函数。我们指定数组的某一维，对该维的每个元素，把所得截面传给函数。</p>
+  <p>例如，若 <code>X</code> 是 50×10 数组，表示与 50 个个体相关的 10 个量，我们想求每行（或每列）的均值，可写</p>
+  <pre><code>&gt; apply(X,1,mean)  # for a 50-vector of individual (row) means
+&gt; apply(X,2,mean)  # for a 10-vector of observation (column) means</code></pre>
+  <p>当然，数组可以超过二维，因此第二个参数（对其应用函数的维）可以大于 2。对本例更好的做法当然是使用 <code>rowMeans()</code> 或 <code>colMeans()</code>。</p>
+  <p>可通过指定多个维，用 <code>apply()</code> 对数组每个元素单独应用函数。在上例中，可用</p>
+  <pre><code>&gt; apply(X,c(1,2),qnorm,mean=3,sd=4)</code></pre>
+  <p>返回 50×10 的正态分位数矩阵。在必需的三个参数之后，任何额外参数都会传给内部函数（此处为 <code>qnorm</code>）。</p>
+  <p>要对列表、向量或其他 R 对象的每个成员执行函数，可用 <code>lapply()</code>。结果将是新列表，其每个元素是对输入每个元素执行所给函数的结果。语法与 <code>apply()</code> 相同，但不需要维属性。若要以向量而非列表得到这些函数求值结果，可用 <code>sapply()</code>。</p>
+
+  <h4>9.3.2 重复执行</h4>
+  <p>若程序员希望运行循环以生成不依赖于索引的值（如模拟中），函数 <code>replicate()</code> 提供便捷快速的接口。要生成由用户定义函数 <code>GetEstimate()</code> 得到的 50000 次抽取的向量——该函数例如可生成模拟数据并返回相应参数估计——程序员可执行</p>
+  <pre><code>&gt; estimates&lt;-replicate(50000,GetEstimate(alpha=1.5,beta=1))</code></pre>
+  <p>若 <code>GetEstimate()</code> 返回标量，<code>replicate()</code> 生成向量；若返回向量，<code>replicate()</code> 会把它们按列绑成矩阵。注意：<code>replicate()</code> 总是用相同参数调用其参数函数——本例中为 1.5 与 1。</p>
+</section>
+
+<!-- ========== PAGE 41 ========== -->
+<section class="page" id="p41">
+  <div class="page-label">第 41 页</div>
+  <pre><code>&gt; estimates&lt;-replicate(50000,GetEstimate(alpha=1.5,beta=1))</code></pre>
+  <p>若 <code>GetEstimate()</code> 返回标量，则 <code>replicate()</code> 生成向量；若返回向量，则 <code>replicate()</code> 会按列绑定成矩阵。注意 <code>replicate()</code> 总是以相同参数调用其参数函数——本例中为 1.5 与 1。</p>
+
+  <h3>9.4 条件语句</h3>
+  <h4>9.4.1 二元运算符</h4>
+  <p>与 R 的其余部分一样，条件运算也高度向量化。比较</p>
+  <pre><code>&gt; x &lt; 3</code></pre>
+  <p>在 <code>x</code> 为向量时，返回由 <code>TRUE</code>/<code>FALSE</code> 组成的向量。该向量可用于后续计算。例如，可用一条命令把所有小于 3 的 <code>x</code> 值设为 0：</p>
+  <pre><code>&gt; x[x&lt;3] &lt;- 0</code></pre>
+  <p>方括号内的条件求值为 <code>TRUE</code>/<code>FALSE</code> 向量；在值为 <code>TRUE</code> 的位置执行赋值。当然，同样的计算也可用 <code>for</code> 循环与 <code>if</code> 命令完成：</p>
+  <pre><code>&gt; for (i in 1:NROW(x)){
++   if (x[i] &lt; 3) {
++     x[i] &lt;- 0
++   }
++ }</code></pre>
+  <p>由于 R 高度向量化，后一种写法比前一种慢得多。用任何脚本语言编程时，一般应尽量避免循环与 <code>if</code> 语句。<sup>8</sup></p>
+
+  <p><strong>布尔运算符</strong></p>
+  <table class="pkg-table">
+    <thead>
+      <tr><th>运算符</th><th>含义</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>! x</code></td><td>对 <code>x</code> 取非（NOT）</td></tr>
+      <tr><td><code>x &amp; y</code></td><td><code>x</code> 与 <code>y</code> 按元素求与</td></tr>
+      <tr><td><code>x &amp;&amp; y</code></td><td><code>x</code> 与 <code>y</code> 作为整体求与</td></tr>
+      <tr><td><code>x | y</code></td><td><code>x</code> 与 <code>y</code> 按元素求或</td></tr>
+      <tr><td><code>x || y</code></td><td><code>x</code> 与 <code>y</code> 作为整体求或</td></tr>
+      <tr><td><code>xor(x, y)</code></td><td><code>x</code> 异或 <code>y</code>（当且仅当恰好一个为真时为真）</td></tr>
+    </tbody>
+  </table>
+
+  <h4>9.4.2 警告：条件与 NA</h4>
+  <p>应注意：对 <code>NA</code> 或 <code>NaN</code> 使用条件运算符会返回 <code>NA</code>。这往往正是我们想要的，但在 <code>if</code> 语句中使用条件时会出问题。例如：</p>
+  <pre><code>&gt; x &lt;- NA
+&gt; if (x == 45) cat("Hey There")
+Error in if (x == 45) cat("Hey There") :
+  missing value where TRUE/FALSE needed</code></pre>
+  <p>因此代码中必须充分使用 <code>is.na()</code> 检查。</p>
+
+  <h3>9.5 三元运算符</h3>
+  <p>由于形如</p>
+  <pre><code>&gt; if (x) {
++   y
++ } else {
++   z
++ }</code></pre>
+  <p class="footnote"><sup>8</sup>当然也可能为去掉循环而用力过猛，使代码复杂到面目全非，甚至反而变慢。</p>
+</section>
+
+<!-- ========== PAGE 42 ========== -->
+<section class="page" id="p42">
+  <div class="page-label">第 42 页</div>
+  <p>在编程中极为常见，R 提供了用一行完成此事的三元运算符：</p>
+  <pre><code>&gt; ifelse(x,y,z)</code></pre>
+  <p>若 <code>x</code> 求值为 <code>TRUE</code>，则返回 <code>y</code>；否则返回 <code>z</code>。由于 R 编程的向量化特性，这很有帮助。例如，<code>x</code> 可以是 <code>TRUE</code>/<code>FALSE</code> 值组成的向量，而冗长形式则必须放在循环中，或用迂回写法才能达到同样效果。</p>
+
+  <h3>9.6 输出文本</h3>
+  <p>R 中的字符串可用 <code>cat()</code> 函数打印。所有参数被强制转换为字符串，再用分隔符连接；默认分隔符为空格。</p>
+  <pre><code>&gt; remaining &lt;- 10
+&gt; cat("We have",remaining,"left\n")
+We have 10 left
+&gt; cat("We have",remaining,"left\n",sep="")
+We have10left</code></pre>
+  <p>要打印制表符、换行等特殊字符，R 使用 C 语言的转义系统：反斜杠后的字符被解释为特殊字符。例如 <code>\n</code> 与 <code>\t</code> 分别表示换行与制表符。要打印反斜杠本身，使用双反斜杠 <code>\\</code>。从脚本输出时（尤其脚本有 bug 时），输出命令与实际打印之间可能有延迟。要强制打印缓冲区中的全部内容，使用 <code>flush(stdout())</code>。</p>
+  <p>若要生成供保存（而非立即显示）的字符串，使用 <code>paste()</code> 命令：它把参数变成字符串并返回，而不是立刻打印。</p>
+
+  <h3>9.7 暂停／获取输入</h3>
+  <p>可用 <code>readline()</code> 命令暂停脚本执行，等待用户输入。若给 <code>readline()</code> 传参数，则将其当作提示符。例如，在某处暂停脚本的命令可以是：</p>
+  <pre><code>&gt; blah &lt;- readline("Press to Continue.")</code></pre>
+  <p>函数返回用户输入的内容。好习惯是把 <code>readline()</code> 的输出赋给某个变量（哪怕只是临时变量），以免无意中把输入打印到屏幕或作为返回值——请记住：若函数未显式调用 <code>return()</code>，其内部最后一个返回值会成为该函数的返回值。</p>
+  <p><code>readline()</code> 始终返回字符串。若需要数值，应用 <code>as.numeric()</code> 转换。</p>
+
+  <h3>9.8 为代码块计时</h3>
+  <p>若想知道某段代码的计算时间，可将其作为参数传给 <code>system.time()</code>。假设我们写了名为 <code>slowfunction()</code> 的函数，想知道它消耗多少处理器时间：</p>
+  <pre><code>&gt; mytime &lt;- system.time(myoutput &lt;- slowfunction(a,b))
+&gt; mytime
+[1] 16.76666667 0.08333333 17.00000000 0.00000000 0.00000000</code></pre>
+  <p><code>slowfunction()</code> 的输出存入 <code>myoutput</code>；<code>mytime</code> 的元素依次为用户时间、系统时间与总时间（秒），随后是该表达式所派生子进程的用户与系统时间合计。</p>
+  <p>我常觉得把代码传给 <code>system.time()</code> 不方便，因此可直接调用 <code>proc.time()</code>（报告当前 R 会话已消耗的时间）再相减。</p>
+</section>
+
+<!-- ========== PAGE 43 ========== -->
+<section class="page" id="p43">
+  <div class="page-label">第 43 页</div>
+  <pre><code>&gt; mytime &lt;- proc.time()
+&gt; myoutput &lt;- slowfunction(a,b)
+&gt; proc.time() - mytime
+[1] 16.76666667 0.08333333 17.00000000 0.00000000 0.00000000</code></pre>
+  <p>我们通常只关心 <code>system.time()</code> 或 <code>proc.time()</code> 返回的第一个数。</p>
+
+  <h3>9.9 从 R 调用 C 函数</h3>
+  <p>有些编程问题并不适合解释型语言，因为它们需要太多算力（尤其是需要过多循环时）。这些函数可用 C 编写、编译，再从 R 内调用。<sup>9</sup> R 使用系统编译器（若已安装）创建共享库（依系统而定，扩展名为 <code>.so</code> 或 <code>.dll</code>），然后可用 <code>dyn.load()</code> 加载。</p>
+
+  <h4>9.9.1 如何编写 C 代码</h4>
+  <p>将从 R 内调用的函数应为 <code>void</code> 类型（除通过参数外不应返回任何值）。值按引用在 R 与 C 之间传递，故所有参数都是指针。实数（或向量）以 <code>double*</code> 传递，整数与布尔以 <code>int*</code> 传递，字符串以 <code>char**</code> 传递。若函数输入为向量，应手动传入其长度。另请注意：矩阵与数组等对象只是带有维数属性的向量；传入 C 时只传向量本身，故应手动传入维数，必要时在 C 中重建矩阵。</p>
+  <p>下面是计算两向量点积的 C 文件示例：</p>
+  <pre><code>void gdot(double *x,double *y,int *n,double *output){
+  int i;
+  *output=0;
+  for (i=0;i&lt;*n;i++){
+    *output+=x[i]*y[i];
+  }
+}</code></pre>
+  <p>除非需要更高级功能（例如传递复数——以特定 C 结构传递），否则无需包含头文件。需要时请包含 <code>R.h</code>。</p>
+  <p>在与 R 配合使用的 C 代码中，不要使用 <code>malloc()</code> 或 <code>free()</code>，而应使用 R 函数 <code>Calloc()</code> 与 <code>Free()</code>。R 有自己的内存管理，与默认 C 内存机制混用是坏主意。</p>
+  <p>从 C 代码内部输出应使用 <code>Rprintf()</code>、<code>warning()</code> 或 <code>error()</code>。这些函数语法与常规 C 命令 <code>printf()</code> 相同，但不应使用 <code>printf()</code> 本身。</p>
+  <p>还应指出：编译代码中的长时间计算无法被用户中断。要检查用户的中断信号，应在代码合适位置加入：</p>
+  <pre><code>#include &lt;R_ext/Utils.h&gt;
+...
+R_CheckUserInterrupt();</code></pre>
+  <p class="footnote"><sup>9</sup>依我经验，用 C 编码带来的加速通常不足以抵消额外编程时间，除非问题极为苛刻。若可能，我建议直接在 R 中工作——作为解释型语言，它已经相当快。在 R 内调试 C 代码也更难，且 C/R 接口还会引入新的一类 bug。</p>
+</section>
+
+<!-- ========== PAGE 44 ========== -->
+<section class="page" id="p44">
+  <div class="page-label">第 44 页</div>
+  <h4>9.9.2 如何使用已编译函数</h4>
+  <p>要编译库，在命令行（而非 R 内部）使用：</p>
+  <pre><code>R CMD SHLIB mycode.c</code></pre>
+  <p>这将生成名为 <code>mycode.so</code> 的共享库。要从该库调用函数，先用 <code>dyn.load()</code> 加载，再用 <code>.C()</code> 命令调用。该命令复制各参数并全部按引用传给 C，然后以列表形式返回它们。例如，要调用上面的点积函数，可用：</p>
+  <pre><code>&gt; x&lt;-c(1,4,6,2)
+&gt; y&lt;-c(3,2.4,1,9)
+&gt; dyn.load("mycode.so")
+&gt; product&lt;-.C("gdot",myx=as.double(x),myy=as.double(y),
++              myn=as.integer(NROW(x)),myoutput=numeric(1))
+&gt; product$myoutput
+[1] 36.6</code></pre>
+  <p>注意调用 <code>.C()</code> 时给参数起名只是为了方便（使结果列表也带有名称）；名称不会传给 C。好习惯（且常常必要）是对传给 <code>.C()</code> 的每个参数使用 <code>as.double()</code> 或 <code>as.integer()</code>。若编译代码不工作或不正确，应首先检查这一点。</p>
+  <p>重要的是：将传给 <code>.C()</code> 的任何向量都应先在 R 中创建。若传入数据很大、不希望为传递而复制，可通过 <code>DUP=FALSE</code> 指示 <code>.C()</code> 就地编辑数据。这样做时程序员应非常谨慎，因为 C 代码中改动的任何变量在 R 中也会改变，且有微妙陷阱。<code>.C()</code> 的帮助文件或在线文档有更多信息。</p>
+  <p>还有 <code>.Fortran()</code> 函数。注意 <code>.C()</code> 与 <code>.Fortran()</code> 是从这些语言调用函数的简单方式，它们不处理 <code>NA</code> 值或复杂 R 对象。更灵活、强大的调用已编译函数的方式是 <code>.Call()</code>，它能处理更多类型的 R 对象，但显著增加编程复杂度。<code>.Call()</code> 是 R 较新的添加，因此语言的大部分是用简单但不灵活的 <code>.C()</code> 写成的。</p>
+
+  <h3>9.10 从 C 调用 R 函数</h3>
+  <p>从 R 调用的已编译 C 代码也可以调用某些 R 函数（Fortran 不行）。特别是与抽取及计算统计分布相关的函数可用。要访问这些函数，必须包含头文件 <code>Rmath.h</code>。可惜这些 C 函数文档不多，程序员可能需要在本机系统的 <code>Rmath.h</code> 中查找其定义。调用这些函数前必须调用 <code>GetRNGstate()</code>，之后必须调用 <code>PutRNGstate()</code>。下面是一个生成带 N(0,1) 误差与给定系数的 AR(1) 序列的 C 函数：</p>
+  <pre><code>#include&lt;Rmath.h&gt;
+void ar1(double *y,double *rho,double *N){
+  int i;
+  GetRNGstate();
+  for (i=1;i&lt;N[0];i++){
+    y[i]=rho[0]*y[i-1]+rnorm(0.0,1.0);
+  }
+  PutRNGstate();
+}</code></pre>
+  <p>可按惯例从 R 内调用：</p>
+  <pre><code>&gt; dyn.load("ar1.so")
+&gt; X&lt;-.C("ar1",x=double(len=5000),rho=as.double(.9),
++        n=as.integer(5000))$x</code></pre>
+  <p>大多数常见数学运算（如 <code>sqrt()</code>）也可通过 C 接口使用。也可从 C 内调用实际的 R 表达式，但不推荐：这会启动新的 R 实例，比结束 C 代码、在 R 中计算、再调用另一个 C 函数更慢。做法是使用（现已弃用的）<code>call_R()</code> 函数。</p>
+</section>
+
+<!-- ========== PAGE 45 ========== -->
+<section class="page" id="p45">
+  <div class="page-label">第 45 页</div>
+  <h2>10 更改配置</h2>
+
+  <h3>10.1 默认选项</h3>
+  <p>与 R 行为相关的许多运行时选项由 <code>options()</code> 函数管理。不带参数运行该函数会返回当前选项列表。可通过传入选项名与新值来更改单个选项。对于临时更改，可保存选项列表再恢复：</p>
+  <pre><code>&gt; oldops &lt;- options()
+&gt; options(verbose=true)
+...
+&gt; options(oldops)</code></pre>
+
+  <h4>10.1.1 有效数字</h4>
+  <p>R 中的数学运算一般做到尽可能的全精度，但例如用 <code>write</code> 命令把数字存入文件时的格式，取决于选项 <code>digits</code>。</p>
+  <pre><code>&gt; options(digits=10)</code></pre>
+  <p>将其从默认的 7 提高到 10。</p>
+
+  <h4>10.1.2 如何处理 NA</h4>
+  <p>多数 R 函数遇到缺失值时的行为由选项 <code>na.action</code> 控制。默认设为 <code>na.omit</code>，表示忽略相应观测。其他可能值为 <code>na.fail</code>、<code>na.exclude</code> 与 <code>na.pass</code>。<code>na.exclude</code> 与 <code>na.omit</code> 仅在返回的数据类型上有所不同，通常可互换使用。</p>
+  <p>这些 NA 处理例程也可直接用于数据。假设我们要从对象 <code>d</code> 中去掉所有缺失值：</p>
+  <pre><code>&gt; cleand &lt;- na.omit(d)</code></pre>
+  <p>注意 <code>na.omit()</code> 会给 <code>d</code> 添加名为 <code>na.action</code> 的额外属性，其中包含被删除的行名。可用 <code>attr()</code> 去掉该属性：</p>
+  <pre><code>&gt; attr(cleand,"na.action")&lt;-NULL</code></pre>
+  <p>这是更改 R 对象属性的一般方法。用 <code>attributes()</code> 命令可查看全部属性。</p>
+
+  <h4>10.1.3 如何处理错误</h4>
+  <p>当函数或脚本出错时，可能需要比错误类型更多的信息。此时可更改错误处理的默认行为。这由 <code>error</code> 选项设置，默认一般为 <code>NULL</code> 或 <code>stop</code>。将该选项设为 <code>recover</code> 后，出错时进入调试模式。首先 R 给出可从何处开始的“帧”（程序位置）列表；选择其一后，用户可像在交互模式下那样输入命令。下例中，我循环里的某个下标超出了所引用矩阵的维数。我先检查 <code>i</code>，再检查 <code>j</code>。</p>
+  <pre><code>&gt; options(error=recover)
+&gt; source("log.R")
+Error: subscript out of bounds
+
+Enter a frame number, or 0 to exit
+
+1: source("log.R")</code></pre>
+</section>
+
+<!-- ========== PAGE 46 ========== -->
+<section class="page" id="p46">
+  <div class="page-label">第 46 页</div>
+  <pre><code>2: eval.with.vis(ei, envir)
+3: eval.with.vis(expr, envir, enclos)
+4: mypredict(v12, newdata = newdata)
+Selection: 4
+Called from: eval(expr, envir, enclos)
+Browse[1]&gt; i
+[1] 1
+Browse[1]&gt; j
+[1] 301</code></pre>
+  <p>在 browse 模式下按回车会回到菜单。调试完成后，可将 <code>error</code> 再设为 <code>NULL</code>。</p>
+
+  <h4>10.1.4 抑制警告</h4>
+  <p>有时代码发出的非致命警告会难看地弄乱输出。要抑制这些警告，用 <code>options()</code> 将 <code>warn</code> 设为负数。若 <code>warn</code> 为 1，警告在代码发出时立即打印。默认情况下警告会保存到函数完成（<code>warn=0</code>）。更高的数值会使警告被当作错误处理。</p>
+
+  <h2>11 保存工作</h2>
+
+  <h3>11.1 保存数据</h3>
+  <p>选择退出时，R 会询问是否保存工作空间映像。这会保存变量、历史与环境。也可随时用下列命令手动保存 R 的状态：</p>
+  <pre><code>&gt; save.image()</code></pre>
+  <p>可用 <code>save()</code> 命令把一个或若干数据对象保存到指定文件：</p>
+  <pre><code>&gt; save(BYU,x,y,file="BYUINFO.Rdata")</code></pre>
+  <p>以 R 默认格式把变量 <code>BYU</code>、<code>x</code> 与 <code>y</code> 存入名为 <code>BYUINFO.Rdata</code> 的文件。可用下列命令再次加载：</p>
+  <pre><code>&gt; load("BYUINFO.Rdata")</code></pre>
+  <p>R 也可保存为许多其他格式。例如，用 <code>write.table()</code> 把数据框写成带表头的空格分隔文本文件。其他一些格式见第 2.6 节。</p>
+
+  <h3>11.2 保存会话输出</h3>
+  <p>我们也可能希望把命令输出写入文件。这用 <code>sink()</code> 命令完成：</p>
+  <pre><code>&gt; sink("myoutput.txt")
+&gt; a
+&gt; sink()</code></pre>
+  <p>执行命令 <code>a</code>（即回显 <code>a</code> 是什么）的输出写入 <code>myoutput.txt</code>。不带参数的 <code>sink()</code> 会再次开始把输出回显到屏幕。默认情况下，<code>sink()</code> 在我们与 R 交互时隐藏输出，因此可通过向 <code>sink()</code> 传入 <code>split=T</code> 关键字，既获得会话记录又能看到输出。<sup>10</sup></p>
+  <p>若使用脚本文件，把 <code>sink()</code> 与 <code>source()</code> 结合是获得工作与输出记录的好方法。</p>
+  <p class="footnote"><sup>10</sup>感谢 Trevor Davis 指出这一点。</p>
+</section>
+
+<!-- ========== PAGE 47 ========== -->
+<section class="page" id="p47">
+  <div class="page-label">第 47 页</div>
+  <pre><code>&gt; sink("myoutput.txt")
+&gt; source("rcode.R",echo=T)
+&gt; sink()</code></pre>
+  <p>R 也可把图形保存为图像文件。在 Windows 下，单击图形使其位于前台，然后通过“文件／另存为”存为 jpeg 或 png。也可从命令行保存为图像或 PostScript 文件，见第 6.6 节。</p>
+
+  <h3>11.3 保存为 LATEX</h3>
+  <p>也可用 Hmisc 库中的 <code>latex()</code> 命令把 R 对象存为 LATEX 表格。我们最常用的是保存回归系数与估计值表：</p>
+  <pre><code>&gt; reg &lt;- lm(educ~exper+south,data=d)
+&gt; latex(summary(reg)$coef)</code></pre>
+  <p>生成名为 <code>summary.tex</code> 的文件，在 LATEX 源文件中包含时产生如下内容：<sup>11</sup></p>
+  <pre><code>                 summary
+             Estimate Std. Error   t value Pr(&gt;|t|)
+(Intercept) 17.2043926 0.088618337 194.140323 0.00000e+00
+exper       -0.4126387 0.008851445 -46.618227 0.00000e+00
+south       -0.7098870 0.074707431  -9.502228 4.05227e-21</code></pre>
+  <p>可见大体正是我们想要的。表格缺少标题，且 p 值列中的数学符号未包在 <code>$</code> 字符中。手工修正后得到：</p>
+  <pre><code>OLS regression of educ on exper and south
+                 summary
+             Estimate Std. Error   t value Pr(&gt;|t|)
+(Intercept) 17.2043926 0.088618337 194.140323 0.00000e+00
+exper       -0.4126387 0.008851445 -46.618227 0.00000e+00
+south       -0.7098870 0.074707431  -9.502228 4.05227e-21</code></pre>
+  <p>注意 <code>latex()</code> 可接受矩阵、摘要、回归输出、数据框及许多其他数据类型。另一个可能更灵活的选项是 xtable 库中的 <code>xtable()</code> 函数。</p>
+
+  <h2>12 结语</h2>
+  <p>我认为 R 为计量经济学计算与研究提供了有效平台。它内置功能足以支撑专业研究，高度可扩展，并有庞大的用户社区。另一方面，熟悉该语言的语法与思路需要一些时间——这正是本文试图解决的问题。</p>
+  <p>希望本文有用且便于查阅。若某个常见计量问题此处未涉及，请告诉我，以便我补充，未来的计量经济学家就不必再自己摸索。若今天的日期在大约 2009 年 5 月之前，请发邮件说明你认为应涵盖的问题。我的邮箱是 <code>g-farnsworth@kellogg.northwestern.edu</code>。若可能，也请附上解决方案。</p>
+  <p class="footnote"><sup>11</sup>至少在 Linux 下，<code>latex()</code> 命令还会弹出窗口显示输出外观。</p>
+</section>
+
+<!-- ========== PAGE 48 ========== -->
+<section class="page" id="p48">
+  <div class="page-label">第 48 页</div>
+  <h2>13 附录：代码示例</h2>
+
+  <h3>13.1 蒙特卡洛模拟</h3>
+  <p>下面这段代码创建一个含 25 个成员、随机分布的数据向量 <code>X</code>。然后创建条件分布为</p>
+  <p style="text-align:center;">\( y = 2 + 3x + \varepsilon \) (13)</p>
+  <p>的向量 <code>y</code>。接着用 <code>y</code> 对 <code>x</code> 回归并存储斜率系数。生成 <code>y</code> 与计算斜率系数重复 500 次。然后计算斜率系数的均值与样本方差。由此可将估计系数的样本方差与斜率系数方差的解析解加以比较。</p>
+  <pre><code>&gt; A &lt;- array(0, dim=c(500,1))
+&gt; x &lt;- rnorm(25,mean=2,sd=1)
+&gt; for(i in 1:500){
++   y &lt;- rnorm(25, mean=(3*x+2), sd=1)
++   beta &lt;- lm(y~x)
++   A[i] &lt;- beta$coef[2]
++ }
+&gt; Abar &lt;- mean(A)
+&gt; varA &lt;- var(A)</code></pre>
+
+  <h3>13.2 Haar 小波</h3>
+  <p>下面的代码定义一个函数，返回 Haar 小波的值，其定义为</p>
+  <p style="text-align:center;">
+  \[
+  \psi^{(H)}(u) =
+  \begin{cases}
+  -1/\sqrt{2} &amp; -1 &lt; u \le 0 \\
+  \;\;1/\sqrt{2} &amp; \;\;0 &lt; u \le 1 \\
+  \;\;0 &amp; \text{其他}
+  \end{cases}
+  \] (14)
+  </p>
+  <p>作用于传入的标量或向量。注意：更好的写法会使用向量化比较，但此处作为条件语句（含 <code>else</code>）的示例。有兴趣的学生可不使用循环重写该函数。</p>
+  <pre><code>&gt; haar &lt;- function(x){
++   y &lt;- x*0
++   for(i in 1:NROW(y)){
++     if(x[i]&lt;0 &amp;&amp; x[i]&gt;-1){
++       y[i]=-1/sqrt(2)
++     } else if (x[i]&gt;0 &amp;&amp; x[i]&lt;1){</code></pre>
+</section>
+
+<!-- ========== PAGE 49 ========== -->
+<section class="page" id="p49">
+  <div class="page-label">第 49 页</div>
+  <pre><code>+       y[i]=1/sqrt(2)
++     }
++   }
++   y
++ }</code></pre>
+  <p>还请注意 <code>if</code> 语句中逻辑“与”运算符 <code>&amp;&amp;</code> 的用法。逻辑“或”运算符是双竖线 <code>||</code>。这些逻辑运算符比较前后的整个对象。例如，仅有一处不同的两个向量在 <code>&amp;&amp;</code> 下会返回 <code>FALSE</code>。按元素比较请使用单字符运算符 <code>&amp;</code> 与 <code>|</code>。</p>
+
+  <h3>13.3 极大似然估计</h3>
+  <p>现在考虑求非线性模型系数似然估计量的代码。假定加性误差服从正态分布：</p>
+  <p style="text-align:center;">\( y = a L^{b} K^{c} + \varepsilon \) (15)</p>
+  <p>注意：解决该问题的最佳方式是用 <code>nls()</code> 做非线性最小二乘回归。我们仍做极大似然估计。首先写一个返回对数似然值的函数（实际是其负值，因为最小化更方便），再用 <code>nlm()</code> 优化。注意 <code>Y</code>、<code>L</code>、<code>K</code> 是数据向量，而 <code>a</code>、<code>b</code>、<code>c</code> 是我们要估计的参数。</p>
+  <pre><code>&gt; mloglik &lt;- function(beta,Y,L,K){
++   n &lt;- length(Y)
++   sum( (log(Y)-beta[1]-beta[2]*log(L)-beta[3]*log(K))^2 )/(2*beta[4]^2) +
++     n/2*log(2*pi) + n*log(beta[4])
++ }
+&gt; mlem &lt;- nlm(mloglik,c(1,.75,.25,.03),Y=Y,L=L,K=K)</code></pre>
+
+  <h3>13.4 从大文件中提取信息</h3>
+  <p>设 <code>301328226.csv</code> 为一个大文件（我的测试约 80 兆字节、150 万行）。我们要提取对应看跌期权（put）的行，并保存价格、执行价、日期与到期日等信息。前几行如下（数据已改动以保护当事人）：</p>
+  <pre><code>date,exdate,cp_flag,strike_price,best_bid,best_offer,volume,impl_volatility,optionid,cfadj,ss_flag
+04JAN1997,20JAN1997,C,500000,215.125,216.125,0,,12225289,1,0
+04JAN1997,20JAN1997,P,500000,0,0.0625,0,,11080707,1,0
+04JAN1997,20JAN1997,C,400000,115.375,116.375,0,,11858328,1,0</code></pre>
+  <p>在我（相对较慢）的计算机上，用 <code>read.csv()</code> 读该文件几乎不可能。</p>
+  <pre><code>&gt; LENGTH&lt;-600000
+&gt; myformat&lt;-list(date="",exdate="",cp="",strike=0,bid=0,ask=0,
++                volume=0,impvolat=0,id=0,cjadj=0,ss=0)
+&gt; date=character(LENGTH)
+&gt; exdate=character(LENGTH)
+&gt; price=numeric(LENGTH)
+&gt; strike=numeric(LENGTH)
+&gt; f&lt;-file("301328226.csv")
+&gt; open(f,open="r")
+&gt; titles&lt;-readLines(f,n=1) # skip the first line
+&gt; i&lt;-1
+&gt; repeat{
++   b&lt;-scan(f,what=myformat,sep=",",nlines=1,quiet=T)
++   if (length(b$date)==0) break
++   if (b$cp=="P"){
++     date[i]&lt;-b$date
++     exdate[i]&lt;-b$exdate
++     price[i]&lt;-(b$bid+b$ask)/2
++     strike[i]&lt;-b$strike
++     i&lt;-i+1
++   }
++ }</code></pre>
+</section>
+
+<!-- ========== PAGE 50 ========== -->
+<section class="page" id="p50">
+  <div class="page-label">第 50 页</div>
+  <pre><code>&gt; close(f)</code></pre>
+  <p>这次读取约花了 5 分钟。注意我预先创建了向量，以免每次读取时重新分配。我事先已确定文件中看跌期权少于 600000。变量 <code>i</code> 告诉我实际用了多少。若超过 600000，程序仍能运行，但每次迭代都会重新分配向量（非常慢）。若每次读多行，速度大概还能大幅提高；若在每次迭代用 <code>as.Date()</code> 把日期字符串转为日期，还可节省内存（见第 2.4 节）。</p>
+  <p>欢迎对本例提出改进建议。</p>
+
+  <h3>13.5 等高线图</h3>
+  <p>这段代码对函数 <code>posterior()</code>（我在别处已定义）生成等高线图。</p>
+  <pre><code>&gt; x &lt;- seq(0,.5,.005)
+&gt; y &lt;- seq(0.7,1.3,.005)
+&gt; output &lt;- matrix(nrow=length(x),ncol=length(y))
+&gt; for(i in 1:length(x)) {
++   for(j in 1:length(y)) {
++     output[i,j] &lt;- posterior(c(x[i],y[j]))
++   }
++ }
+&gt; contour(output,x=x,y=y,xlab="sigma squared",ylab="gamma",
++          main="Posterior using a flat prior")
+&gt; points( 0.04647009 , 0.993137,pch=8)
+&gt; arrows(.1,.75,0.04647009,0.993137)
+&gt; text(.09,.73,"Posterior Mode",pos=4)</code></pre>
+  <p>（图题：Posterior using a flat prior；横轴为 sigma squared，纵轴为 gamma；图中标注 Posterior Mode。）</p>
+</section>
+
+<footer>
+  译文对应原书全书第 1–50 页。代码与命令名保留英文原文。
+</footer>
+
+</div>
+</body>
+</html>
